@@ -1,10 +1,11 @@
 {
-  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "$schema": "https://unpkg.com/knip@6/schema.json",
   "ignoreExportsUsedInFile": {
     "interface": true,
     "type": true
   },
+  "ignoreDependencies": ["tailwindcss", "tw-animate-css"],
   "tags": ["-lintignore"],
-  "project": ["**/*.{js,ts,tsx}", "!.trunk"],
-  "ignore": []
+  "project": ["**/*.{js,ts,tsx}"],
+  "ignore": [".trunk/**"]
 }

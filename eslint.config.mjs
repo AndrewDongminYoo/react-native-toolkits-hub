@@ -17,7 +17,7 @@ import tseslint from "typescript-eslint";
  */
 const eslintConfig = [
   {
-    ignores: [".next/"],
+    ignores: [".next/", ".trunk/"],
   },
   ...nextTs,
   ...nextVitals,

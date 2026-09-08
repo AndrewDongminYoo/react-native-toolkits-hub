@@ -18,7 +18,7 @@ runtimes:
 lint:
   enabled:
     - grype@0.110.0
-    # Pinned to the workspace eslint (package.json ^9.39.4);
+    # Pinned to the workspace eslint (package.json ^10.8.0).
     # eslint-plugin-react@7.37.5 breaks on ESLint 10 (context.getFilename removed).
     - eslint@10.8.0
     - checkov@3.3.8
