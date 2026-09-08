@@ -1,10 +1,19 @@
 allowBuilds:
   unrs-resolver: true # napi-postinstall binding check
 
+# eslint-config-next supports ESLint 10, but these bundled plugin majors still declare ESLint 9 peer ranges.
+# Remove these scoped allowances when the upstream ranges include ESLint 10.
+peerDependencyRules:
+  allowedVersions:
+    "eslint-plugin-import@2>eslint": "10"
+    "eslint-plugin-jsx-a11y@6>eslint": "10"
+    "eslint-plugin-react@7>eslint": "10"
+
 # Security overrides. Selectors are scoped per major line where an advisory
 # only publishes a fix in one major, so older lines are not dragged across a
 # breaking major.
 overrides:
+  "browserslist@>=4 <5": ^4.28.7 # GHSA-73wf-gq98-2v4g, GHSA-c83g-rgw3-j3cx
   sharp: ^0.35.0 # GHSA-f88m-g3jw-g9cj (libvips CVE-2026-33327/33328/35590/35591)
   "@babel/core": ^7.29.6
   brace-expansion@1: ^1.1.16
