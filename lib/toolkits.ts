@@ -36,7 +36,7 @@ export const toolkits = [
     route: "/rn-agents-kit",
     shortName: "Agents",
     slug: "rn-agents-kit",
-    status: "v0.1.0 · Public",
+    status: "v0.2.0 · Public",
   },
   {
     accent: "oklch(0.78 0.15 210)",
@@ -52,7 +52,7 @@ export const toolkits = [
     route: "/rn-typed-assets",
     shortName: "Assets",
     slug: "rn-typed-assets",
-    status: "v1.6.0 · MIT",
+    status: "v1.6.1 · MIT",
   },
   {
     accent: "oklch(0.8 0.17 80)",
@@ -68,7 +68,7 @@ export const toolkits = [
     route: "/rn-newarch-ready",
     shortName: "New Arch",
     slug: "rn-newarch-ready",
-    status: "v0.1.1 · MIT",
+    status: "v0.1.2 · MIT",
   },
   {
     accent: "oklch(0.73 0.2 25)",
