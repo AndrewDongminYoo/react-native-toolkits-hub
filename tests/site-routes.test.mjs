@@ -17,11 +17,14 @@ const routes = [
   {
     path: "/rn-agents-kit",
     marker: "RN Agents Kit",
+    version: "v0.2.0",
+    outdatedVersion: "v0.1.0",
     destinations: ["https://github.com/AndrewDongminYoo/rn-agents-kit"],
   },
   {
     path: "/rn-typed-assets",
     marker: "rn-typed-assets",
+    version: "v1.6.1",
     destinations: [
       "https://github.com/AndrewDongminYoo/rn-typed-assets",
       "https://www.npmjs.com/package/rn-typed-assets",
@@ -30,6 +33,7 @@ const routes = [
   {
     path: "/rn-newarch-ready",
     marker: "rn-newarch-ready",
+    version: "v0.1.2",
     destinations: [
       "https://github.com/AndrewDongminYoo/rn-newarch-ready",
       "https://www.npmjs.com/package/rn-newarch-ready",
@@ -53,6 +57,17 @@ for (const route of routes) {
     assert.equal(response.status, 200, `${route.path} returned HTTP ${response.status}`);
     assert.match(html, new RegExp(route.marker, "i"));
 
+    if (route.version) {
+      assert.ok(html.includes(route.version), `${route.path} is missing ${route.version}`);
+    }
+
+    if (route.outdatedVersion) {
+      assert.ok(
+        !html.includes(route.outdatedVersion),
+        `${route.path} still advertises ${route.outdatedVersion}`
+      );
+    }
+
     for (const destination of route.destinations) {
       assert.ok(
         html.includes(`href="${destination}"`),
@@ -63,9 +78,12 @@ for (const route of routes) {
 }
 
 const assets = [
-  { path: "/sitemap.xml", marker: "/rn-agents-kit</loc>" },
-  { path: "/robots.txt", marker: "Sitemap:" },
-  { path: "/llms.txt", marker: "# React Native Toolkits" },
+  { path: "/sitemap.xml", markers: ["/rn-agents-kit</loc>"] },
+  { path: "/robots.txt", markers: ["Sitemap:"] },
+  {
+    path: "/llms.txt",
+    markers: ["# React Native Toolkits", "v0.2.0", "v1.6.1", "v0.1.2"],
+  },
 ];
 
 for (const asset of assets) {
@@ -74,7 +92,10 @@ for (const asset of assets) {
     const body = await response.text();
 
     assert.equal(response.status, 200, `${asset.path} returned HTTP ${response.status}`);
-    assert.ok(body.includes(asset.marker), `${asset.path} is missing ${asset.marker}`);
+
+    for (const marker of asset.markers) {
+      assert.ok(body.includes(marker), `${asset.path} is missing ${marker}`);
+    }
   });
 }
 

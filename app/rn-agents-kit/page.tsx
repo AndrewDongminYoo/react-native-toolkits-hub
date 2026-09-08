@@ -86,7 +86,7 @@ export default function AgentsKitPage() {
       style={{ "--tool-accent": toolkit.accent } as CSSProperties}
     >
       <ProductHero
-        description="The public v0.1.0 snapshot packages six narrow skills. Each one owns a specific maintenance job and keeps evidence, consent, and review boundaries explicit."
+        description="The public v0.2.0 snapshot packages six narrow skills. Each one owns a specific maintenance job and keeps evidence, consent, and review boundaries explicit."
         intro="Give your coding agent a React Native maintenance kit that reads first and earns every change."
         toolkit={toolkit}
       >
@@ -117,7 +117,7 @@ export default function AgentsKitPage() {
               Two commands. Six focused skills.
             </h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground">
-              Add the public marketplace, then install the v0.1.0 plugin from that source. The
+              Add the public marketplace, then install the v0.2.0 plugin from that source. The
               public README currently documents this Claude Code installation path.
             </p>
           </div>
