@@ -32,15 +32,23 @@ Open [http://localhost:3000](http://localhost:3000).
 ## Verification
 
 ```bash
+pnpm format:check
 pnpm lint
-pnpm exec tsc --noEmit
+pnpm typecheck
 pnpm build
 ```
 
-The dependency-free route integration test expects a running server.
+The dependency-free route integration test expects a production server.
+Start the server in one terminal.
 
 ```bash
-SITE_BASE_URL=http://127.0.0.1:3000 node --test tests/site-routes.test.mjs
+pnpm start
+```
+
+Run the test in another terminal.
+
+```bash
+SITE_BASE_URL=http://127.0.0.1:3000 pnpm test
 ```
 
 ## Deployment
