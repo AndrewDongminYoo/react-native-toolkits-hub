@@ -14,10 +14,11 @@ peerDependencyRules:
 # breaking major.
 overrides:
   "browserslist@>=4 <5": ^4.28.7 # GHSA-73wf-gq98-2v4g, GHSA-c83g-rgw3-j3cx
-  sharp: ^0.35.0 # GHSA-f88m-g3jw-g9cj (libvips CVE-2026-33327/33328/35590/35591)
+  sharp: ^0.35.4 # GHSA-f88m-g3jw-g9cj (libvips CVE-2026-33327/33328/35590/35591), GHSA-rgj7-g3m4-5g8c (libheif)
   "@babel/core": ^7.29.6
-  brace-expansion@1: ^1.1.16
-  brace-expansion@5: ^5.0.7
+  brace-expansion@1: ^1.1.21 # GHSA-6j4f-fj2g-mc7p, GHSA-q2hr-2g5m-vwhr, GHSA-qhr7-859c-m2p7
+  brace-expansion@5: ^5.0.12 # same advisories as brace-expansion@1
   js-yaml@4: ^4.3.0
   nanoid@3: ^3.3.18 # GHSA-2v37-7h3g-55p8
   postcss@8: ^8.5.18
+  source-map-js@1: ^1.2.2 # GHSA-68fv-2mgg-jv7q
