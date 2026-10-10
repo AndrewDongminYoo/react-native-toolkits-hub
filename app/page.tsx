@@ -23,7 +23,7 @@ const agentLayer = getToolkit("rn-agents-kit");
 const deterministicTools = toolkits.filter((toolkit) => toolkit.slug !== agentLayer.slug);
 
 const operatingContract = [
-  { stage: "Audit", value: "06 skills" },
+  { stage: "Audit", value: "10 skills" },
   { stage: "Consent", value: "explicit" },
   { stage: "Review", value: "git diff" },
 ];

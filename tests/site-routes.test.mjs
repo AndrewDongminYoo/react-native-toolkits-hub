@@ -17,8 +17,8 @@ const routes = [
   {
     path: "/rn-agents-kit",
     marker: "RN Agents Kit",
-    version: "v0.2.0",
-    outdatedVersion: "v0.1.0",
+    version: "v0.2.1",
+    outdatedVersion: "v0.2.0",
     destinations: ["https://github.com/AndrewDongminYoo/rn-agents-kit"],
   },
   {
@@ -82,7 +82,7 @@ const assets = [
   { path: "/robots.txt", markers: ["Sitemap:"] },
   {
     path: "/llms.txt",
-    markers: ["# React Native Toolkits", "v0.2.0", "v1.6.1", "v0.1.2"],
+    markers: ["# React Native Toolkits", "v0.2.1", "v1.6.1", "v0.1.2"],
   },
 ];
 

@@ -3,8 +3,12 @@ import {
   Bot,
   Camera,
   CheckCircle2,
+  CircleArrowUp,
+  ClipboardCheck,
+  FileSearch,
   Github,
   ImageMinus,
+  Layers,
   Radio,
   ScanSearch,
   ShieldCheck,
@@ -63,6 +67,34 @@ const skills = [
     name: "rn-metro-console",
     posture: "Bounded reader",
   },
+  {
+    description:
+      "Route runtime acceptance evidence — screenshots, Metro logs, interactive QA — to the right surface, and name the authorization each one needs.",
+    icon: ClipboardCheck,
+    name: "rn-device-qa",
+    posture: "Evidence router",
+  },
+  {
+    description:
+      "Inventory where a GitHub Actions workflow declares its artifact evidence: app roots, dependency and build declarations, and artifact references.",
+    icon: FileSearch,
+    name: "rn-ci-artifact-audit",
+    posture: "Read-only inventory",
+  },
+  {
+    description:
+      "Resolve one EAS build profile and its extends chain from eas.json, rejecting missing profiles, cycles, and excessive depth.",
+    icon: Layers,
+    name: "rn-eas-profile-audit",
+    posture: "Profile resolver",
+  },
+  {
+    description:
+      "Record the upgrade surface before a React Native or Expo version bump: installed versions, lockfile candidates, native ownership, and CI verification gaps.",
+    icon: CircleArrowUp,
+    name: "rn-upgrade-pulse",
+    posture: "Pre-bump record",
+  },
 ];
 
 const contract = [
@@ -76,7 +108,7 @@ const toolkit = getToolkit("rn-agents-kit");
 
 export const metadata = productMetadata(
   toolkit,
-  "Six audit-first agent skills for React Native project snapshots, asset hygiene, New Architecture readiness, code review, device capture, and Metro console output."
+  "Ten audit-first agent skills for React Native project snapshots, asset hygiene, New Architecture readiness, code review, device capture and QA, Metro console output, CI artifacts, EAS profiles, and upgrade planning."
 );
 
 export default function AgentsKitPage() {
@@ -86,7 +118,7 @@ export default function AgentsKitPage() {
       style={{ "--tool-accent": toolkit.accent } as CSSProperties}
     >
       <ProductHero
-        description="The public v0.2.0 snapshot packages six narrow skills. Each one owns a specific maintenance job and keeps evidence, consent, and review boundaries explicit."
+        description="The public v0.2.1 release packages ten narrow skills. Each one owns a specific maintenance job and keeps evidence, consent, and review boundaries explicit."
         intro="Give your coding agent a React Native maintenance kit that reads first and earns every change."
         toolkit={toolkit}
       >
@@ -114,10 +146,10 @@ export default function AgentsKitPage() {
           <div>
             <p className="section-kicker">Install / Claude Code</p>
             <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] sm:text-6xl">
-              Two commands. Six focused skills.
+              Two commands. Ten focused skills.
             </h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground">
-              Add the public marketplace, then install the v0.2.0 plugin from that source. The
+              Add the public marketplace, then install the v0.2.1 plugin from that source. The
               public README currently documents this Claude Code installation path.
             </p>
           </div>
@@ -137,7 +169,7 @@ export default function AgentsKitPage() {
       <section className="field-grid border-b border-border bg-card/35">
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
           <div className="max-w-3xl">
-            <p className="section-kicker">Skill inventory / 06</p>
+            <p className="section-kicker">Skill inventory / 10</p>
             <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] sm:text-6xl">
               One skill, one maintenance job.
             </h2>

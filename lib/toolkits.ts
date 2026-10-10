@@ -28,7 +28,7 @@ export const toolkits = [
     accent: "oklch(0.83 0.2 130)",
     accentHex: "#9be03c",
     description:
-      "Six audit-first agent skills for inspecting, maintaining, and verifying React Native projects.",
+      "Ten audit-first agent skills for inspecting, maintaining, and verifying React Native projects.",
     eyebrow: "Agent workflow",
     githubUrl: "https://github.com/AndrewDongminYoo/rn-agents-kit",
     index: "01",
@@ -36,7 +36,7 @@ export const toolkits = [
     route: "/rn-agents-kit",
     shortName: "Agents",
     slug: "rn-agents-kit",
-    status: "v0.2.0 · Public",
+    status: "v0.2.1 · Public",
   },
   {
     accent: "oklch(0.78 0.15 210)",
