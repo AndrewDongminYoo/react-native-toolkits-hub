@@ -32,6 +32,11 @@ updates:
       - dependency-name: "@types/node"
         update-types:
           - version-update:semver-major
+      # A runtime major that fixes no security advisory is a planned migration, not a queue item (#18).
+      # update-types limits this to version updates; security updates still open.
+      - dependency-name: "@vercel/analytics"
+        update-types:
+          - version-update:semver-major
     groups:
       npm-minor-patch:
         patterns:
