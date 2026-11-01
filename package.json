@@ -10,7 +10,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
     "typecheck": "tsc --noEmit",
-    "test": "node --test tests/site-routes.test.mjs",
+    "test": "node --test tests/site-routes.test.mjs tests/translation-keys.test.mjs",
     "format:check": "prettier . --check"
   },
   "dependencies": {

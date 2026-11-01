@@ -43,11 +43,11 @@ export function ProductHero({
             {toolkit.name}
           </h1>
           <p className="mt-7 max-w-2xl text-xl leading-8 font-medium text-foreground/90 sm:text-2xl">
-            {translate(intro, locale)}
+            {intro}
           </p>
           {description && (
             <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground">
-              {translate(description, locale)}
+              {description}
             </p>
           )}
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -60,7 +60,7 @@ export function ProductHero({
             <Button asChild className="h-11 rounded-none px-5" size="lg" variant="outline">
               <a href={toolkit.githubUrl} rel="noopener noreferrer" target="_blank">
                 <Github className="size-4" />
-                {translate("GitHub", locale)}
+                GitHub
               </a>
             </Button>
             {toolkit.productUrl && (

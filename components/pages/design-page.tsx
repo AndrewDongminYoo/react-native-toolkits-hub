@@ -115,7 +115,7 @@ export default function DesignToNativeWindPage({ locale = "en" }: LocaleProps) {
               key={signal}
             >
               <span className="text-muted-foreground">0{index + 1}</span>
-              <span>{translate(signal, locale)}</span>
+              <span>{signal}</span>
               <span className="text-[var(--tool-accent-ink)]">{translate(value, locale)}</span>
             </div>
           ))}
@@ -206,7 +206,7 @@ export default function DesignToNativeWindPage({ locale = "en" }: LocaleProps) {
                 {translate("Current target", locale)}
               </p>
               <h3 className="mt-5 font-display text-3xl font-semibold tracking-[-0.04em]">
-                {translate("React Native + NativeWind", locale)}
+                React Native + NativeWind
               </h3>
               <p className="mt-4 text-sm leading-6 text-muted-foreground">
                 {translate(

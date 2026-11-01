@@ -417,4 +417,5 @@ export const korean: Record<string, string> = {
     "선택한 디자인을 React Native와 NativeWind 컴포넌트 코드로 결정론적으로 변환하는 Figma 플러그인입니다.",
   "A read-only, local-first React Native New Architecture readiness audit for dependencies, settings, and app-local native modules.":
     "의존성과 설정, 앱 내부 네이티브 모듈을 대상으로 React Native New Architecture 준비 상태를 점검하는 읽기 전용, 로컬 우선 도구입니다.",
+  "AndrewDongminYoo on GitHub": "AndrewDongminYoo의 GitHub",
 };

@@ -188,7 +188,7 @@ export default function HomePage({ locale = "en" }: LocaleProps) {
                     key={signal}
                   >
                     <span className="text-muted-foreground">{index}</span>
-                    <span className="text-foreground">{translate(signal, locale)}</span>
+                    <span className="text-foreground">{signal}</span>
                     <span className="text-primary-ink">{translate(state, locale)}</span>
                   </div>
                 ))}
@@ -341,7 +341,7 @@ export default function HomePage({ locale = "en" }: LocaleProps) {
                   <dt className="font-mono text-[0.6rem] tracking-[0.14em] text-muted-foreground uppercase">
                     {translate(label, locale)}
                   </dt>
-                  <dd className="font-mono text-sm text-foreground">{translate(value, locale)}</dd>
+                  <dd className="font-mono text-sm text-foreground">{value}</dd>
                 </div>
               ))}
             </dl>

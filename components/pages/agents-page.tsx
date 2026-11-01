@@ -149,7 +149,7 @@ export default function AgentsKitPage({ locale = "en" }: LocaleProps) {
               key={signal}
             >
               <span className="text-muted-foreground">0{index + 1}</span>
-              <span>{translate(signal, locale)}</span>
+              <span>{signal}</span>
               <span className="text-[var(--tool-accent-ink)]">{translate(value, locale)}</span>
             </div>
           ))}

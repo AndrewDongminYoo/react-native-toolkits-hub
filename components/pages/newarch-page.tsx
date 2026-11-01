@@ -95,7 +95,7 @@ export default function NewArchitectureReadyPage({ locale = "en" }: LocaleProps)
               className="flex items-center justify-between border-b border-border pb-3 last:border-0 last:pb-0"
               key={signal}
             >
-              <span>{translate(signal, locale)}</span>
+              <span>{signal}</span>
               <span className="text-[var(--tool-accent-ink)]">{translate(value, locale)}</span>
             </div>
           ))}

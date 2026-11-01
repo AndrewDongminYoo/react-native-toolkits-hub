@@ -13,10 +13,10 @@ export function SiteFooter({ locale = "en" }: LocaleProps) {
         <div>
           <Link className="inline-flex items-center gap-3" href={localePath("/", locale)}>
             <span className="flex size-9 items-center justify-center border border-primary bg-primary-solid text-xs font-bold text-primary-foreground">
-              {translate("RN", locale)}
+              RN
             </span>
             <span className="font-display text-xl font-semibold tracking-[-0.03em]">
-              {translate("React Native Toolkits", locale)}
+              React Native Toolkits
             </span>
           </Link>
           <p className="mt-5 max-w-md text-sm leading-6 text-muted-foreground">

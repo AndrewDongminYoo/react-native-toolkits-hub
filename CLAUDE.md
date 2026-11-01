@@ -12,7 +12,7 @@ pnpm lint:fix      # Apply ESLint fixes
 pnpm typecheck     # Run tsc --noEmit
 pnpm format        # Apply Prettier formatting
 pnpm format:check  # Verify Prettier formatting
-pnpm test          # Run the dependency-free route tests
+pnpm test          # Run the dependency-free route and translation-key tests
 ```
 
 `pnpm test` needs a server already running, and reads `SITE_BASE_URL` (default `http://127.0.0.1:3000`).
@@ -68,4 +68,4 @@ Do not expose private development plans, legal notes, source history, paid-tier 
 - Use `@/*` path aliases for project imports.
 - Use `import type` for type-only imports.
 - Let the configured import and JSX prop-order rules determine ordering.
-- Keep code blocks, commands, API identifiers, and product names in English. English routes live under `app/(english)` without a URL prefix; Korean equivalents live under `app/(korean)/ko`. Shared page components accept a `locale` prop, and `lib/ko.ts` contains Korean copy keyed by the English source text. Use `localePath` for internal navigation and keep both locales' content and section identifiers in sync.
+- Keep code blocks, commands, API identifiers, and product names in English. English routes live under `app/(english)` without a URL prefix; Korean equivalents live under `app/(korean)/ko`. Shared page components accept a `locale` prop, and `lib/ko.ts` contains Korean copy keyed by the English source text; client components use `pick` from `lib/locale.ts` so the dictionary stays out of the browser bundle. Do not pass product names or identifiers through `translate()`. Use `localePath` for internal navigation and keep both locales' content and section identifiers in sync.
