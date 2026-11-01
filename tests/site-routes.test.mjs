@@ -128,6 +128,17 @@ test("unknown Korean products return 404", async () => {
   assert.equal(response.status, 404);
 });
 
+test("unmatched URLs render the 404 inside the site layout", async () => {
+  for (const path of ["/not-a-page", "/ko/not-a-toolkit"]) {
+    const response = await fetch(new URL(path, baseUrl));
+    assert.equal(response.status, 404);
+    const html = await response.text();
+    assert.match(html, /<html[^>]*lang="en"/);
+    assert.match(html, /<link[^>]*rel="stylesheet"/);
+    assert.ok(html.includes("<header"), `${path} renders without the site header`);
+  }
+});
+
 const assets = [
   {
     path: "/sitemap.xml",
