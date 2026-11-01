@@ -6,7 +6,6 @@ import {
   Braces,
   CheckCircle2,
   Eye,
-  Github,
   Layers3,
   Radio,
   ScanLine,
@@ -14,10 +13,13 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+import { Github } from "@/components/brand-icons";
 import { LegacyHashRedirect } from "@/components/legacy-hash-redirect";
 import { ToolkitCard } from "@/components/toolkit-card";
 import { Button } from "@/components/ui/button";
+import { localePath, type LocaleProps } from "@/lib/locale";
 import { getToolkit, toolkits } from "@/lib/toolkits";
+import { translate } from "@/lib/translate";
 
 const agentLayer = getToolkit("rn-agents-kit");
 const deterministicTools = toolkits.filter((toolkit) => toolkit.slug !== agentLayer.slug);
@@ -92,36 +94,42 @@ React Native — New Architecture readiness
 Summary: 23 supported, 23 likely, 10 unknown, 59 non-native, 4 archived
 Verdict: needs-review`;
 
-export default function HomePage() {
+export default function HomePage({ locale = "en" }: LocaleProps) {
   return (
     <main>
-      <LegacyHashRedirect />
+      <LegacyHashRedirect locale={locale} />
 
       <section className="field-grid relative isolate overflow-hidden border-b border-border">
         <div className="absolute inset-y-0 left-[7%] w-px bg-border/70" />
         <div className="absolute inset-y-0 right-[7%] w-px bg-border/70" />
         <div className="mx-auto grid min-h-[calc(100svh-4.25rem)] max-w-7xl gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-12 lg:py-24">
           <div className="reveal relative z-10">
-            <p className="section-kicker">React Native Toolkits / Field index</p>
+            <p className="section-kicker">
+              {translate("React Native Toolkits / Field index", locale)}
+            </p>
             <h1 className="mt-8 max-w-4xl font-display text-6xl leading-[0.86] font-semibold tracking-[-0.065em] text-balance text-foreground sm:text-7xl lg:text-[6.7rem]">
-              Build less blind.
-              <span className="mt-2 block text-primary">Ship more certain.</span>
+              {translate("Build less blind.", locale)}
+              <span className="mt-2 block text-primary">
+                {translate("Ship more certain.", locale)}
+              </span>
             </h1>
             <p className="mt-8 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
-              A focused collection of developer tools for the React Native work that gets brittle:
-              assets, architecture audits, design handoff, and agent-led maintenance.
+              {translate(
+                "A focused collection of developer tools for the React Native work that gets brittle: assets, architecture audits, design handoff, and agent-led maintenance.",
+                locale
+              )}
             </p>
 
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
               <Button asChild className="h-12 rounded-none px-6" size="lg">
                 <a href="#toolkits">
-                  Browse the field kit
+                  {translate("Browse the field kit", locale)}
                   <ArrowDown className="size-4" />
                 </a>
               </Button>
               <Button asChild className="h-12 rounded-none px-6" size="lg" variant="outline">
-                <Link href="/rn-agents-kit">
-                  Meet the agent kit
+                <Link href={localePath("/rn-agents-kit", locale)}>
+                  {translate("Meet the agent kit", locale)}
                   <ArrowRight className="size-4" />
                 </Link>
               </Button>
@@ -134,35 +142,37 @@ export default function HomePage() {
                   key={item.stage}
                 >
                   <dt className="font-mono text-[0.64rem] tracking-[0.14em] text-muted-foreground uppercase">
-                    {item.stage}
+                    {translate(item.stage, locale)}
                   </dt>
                   <dd className="mt-2 font-display text-xl leading-tight font-semibold">
-                    {item.value}
+                    {translate(item.value, locale)}
                   </dd>
                 </div>
               ))}
             </dl>
             <p className="mt-2 font-mono text-[0.6rem] text-muted-foreground">
-              The agent kit&apos;s operating contract: read first, ask before writing, hand back a
-              diff.
+              {translate(
+                "The agent kit's operating contract: read first, ask before writing, hand back a diff.",
+                locale
+              )}
             </p>
           </div>
 
           <div className="reveal reveal-delay-2 relative lg:pl-8">
             <div className="absolute -top-8 -right-5 font-mono text-[0.6rem] tracking-[0.18em] text-muted-foreground uppercase sm:right-0">
-              Coordinate / RN-37.7749
+              {translate("Coordinate / RN-37.7749", locale)}
             </div>
             <div className="lab-panel border border-border bg-card/92 p-5 shadow-[20px_20px_0_color-mix(in_oklch,var(--primary)_11%,transparent)] sm:p-7">
               <div className="flex items-center justify-between border-b border-border pb-4">
                 <div className="flex items-center gap-2">
                   <Radio className="size-4 text-primary" />
                   <span className="font-mono text-[0.68rem] tracking-[0.14em] uppercase">
-                    RN field console
+                    {translate("RN field console", locale)}
                   </span>
                 </div>
                 <span className="flex items-center gap-2 font-mono text-[0.62rem] tracking-[0.12em] text-accent-ink uppercase">
                   <span className="size-1.5 rounded-full bg-accent shadow-[0_0_12px_var(--accent)]" />
-                  Signals live
+                  {translate("Signals live", locale)}
                 </span>
               </div>
 
@@ -179,7 +189,7 @@ export default function HomePage() {
                   >
                     <span className="text-muted-foreground">{index}</span>
                     <span className="text-foreground">{signal}</span>
-                    <span className="text-primary-ink">{state}</span>
+                    <span className="text-primary-ink">{translate(state, locale)}</span>
                   </div>
                 ))}
               </div>
@@ -187,10 +197,13 @@ export default function HomePage() {
               <div className="mt-7 grid grid-cols-[1fr_auto] gap-5 border-t border-border pt-5">
                 <div>
                   <p className="font-mono text-[0.6rem] tracking-[0.15em] text-muted-foreground uppercase">
-                    Operating posture
+                    {translate("Operating posture", locale)}
                   </p>
                   <p className="mt-2 text-sm leading-6 text-foreground">
-                    Inspect the real project. Keep weak evidence weak. Make every change reviewable.
+                    {translate(
+                      "Inspect the real project. Keep weak evidence weak. Make every change reviewable.",
+                      locale
+                    )}
                   </p>
                 </div>
                 <Bot className="mt-1 size-8 text-primary" strokeWidth={1.25} />
@@ -203,37 +216,39 @@ export default function HomePage() {
       <section className="border-b border-border" id="toolkits">
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
           <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
-            <p className="section-kicker">Module directory</p>
+            <p className="section-kicker">{translate("Module directory", locale)}</p>
             <div>
               <h2 className="font-display text-4xl leading-[0.95] font-semibold tracking-[-0.05em] text-balance sm:text-6xl">
-                One agent layer. Three deterministic tools.
+                {translate("One agent layer. Three deterministic tools.", locale)}
               </h2>
               <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground">
-                The agent kit drives the maintenance loop and calls the tools underneath it. Each
-                tool below also runs on its own, from a public source, with no agent involved.
+                {translate(
+                  "The agent kit drives the maintenance loop and calls the tools underneath it. Each tool below also runs on its own, from a public source, with no agent involved.",
+                  locale
+                )}
               </p>
             </div>
           </div>
 
           <div className="mt-14 flex items-center gap-4">
             <p className="font-mono text-[0.64rem] tracking-[0.16em] text-primary-ink uppercase">
-              Agentic layer
+              {translate("Agentic layer", locale)}
             </p>
             <span className="h-px flex-1 bg-border" />
           </div>
           <div className="mt-5">
-            <ToolkitCard featured toolkit={agentLayer} />
+            <ToolkitCard featured locale={locale} toolkit={agentLayer} />
           </div>
 
           <div className="mt-10 flex items-center gap-4">
             <p className="font-mono text-[0.64rem] tracking-[0.16em] text-muted-foreground uppercase">
-              Deterministic tools
+              {translate("Deterministic tools", locale)}
             </p>
             <span className="h-px flex-1 bg-border" />
           </div>
           <div className="mt-5 grid gap-px bg-border md:grid-cols-3">
             {deterministicTools.map((toolkit) => (
-              <ToolkitCard key={toolkit.slug} toolkit={toolkit} />
+              <ToolkitCard key={toolkit.slug} locale={locale} toolkit={toolkit} />
             ))}
           </div>
         </div>
@@ -243,9 +258,9 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
           <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
             <div>
-              <p className="section-kicker">Trust contract</p>
+              <p className="section-kicker">{translate("Trust contract", locale)}</p>
               <h2 className="mt-6 font-display text-4xl leading-[0.98] font-semibold tracking-[-0.05em] sm:text-5xl">
-                Evidence before confidence.
+                {translate("Evidence before confidence.", locale)}
               </h2>
             </div>
             <div className="grid gap-px bg-border md:grid-cols-3">
@@ -253,10 +268,10 @@ export default function HomePage() {
                 <article className="bg-card p-6 sm:p-7" key={principle.title}>
                   <principle.icon className="size-6 text-primary" strokeWidth={1.5} />
                   <h3 className="mt-10 font-display text-2xl font-semibold tracking-[-0.035em]">
-                    {principle.title}
+                    {translate(principle.title, locale)}
                   </h3>
                   <p className="mt-4 text-sm leading-6 text-muted-foreground">
-                    {principle.description}
+                    {translate(principle.description, locale)}
                   </p>
                 </article>
               ))}
@@ -268,13 +283,15 @@ export default function HomePage() {
       <section className="field-grid border-b border-border bg-card/35">
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
           <div className="max-w-3xl">
-            <p className="section-kicker">Workflow rail</p>
+            <p className="section-kicker">{translate("Workflow rail", locale)}</p>
             <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] text-balance sm:text-6xl">
-              Enter the loop where the uncertainty is.
+              {translate("Enter the loop where the uncertainty is.", locale)}
             </h2>
             <p className="mt-5 text-base leading-7 text-muted-foreground">
-              This is a map, not a mandatory suite. Start with the problem in front of you and use
-              the smallest module that can expose or remove it.
+              {translate(
+                "This is a map, not a mandatory suite. Start with the problem in front of you and use the smallest module that can expose or remove it.",
+                locale
+              )}
             </p>
           </div>
 
@@ -288,9 +305,11 @@ export default function HomePage() {
                   </span>
                 </div>
                 <h3 className="mt-12 font-display text-2xl font-semibold tracking-[-0.035em]">
-                  {step.label}
+                  {translate(step.label, locale)}
                 </h3>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">{step.detail}</p>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                  {translate(step.detail, locale)}
+                </p>
                 <p className="absolute right-7 bottom-7 left-7 border-t border-border pt-3 font-mono text-[0.64rem] tracking-[0.11em] text-primary-ink uppercase">
                   {step.tool}
                 </p>
@@ -303,15 +322,15 @@ export default function HomePage() {
       <section className="border-b border-border">
         <div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.72fr_1.28fr] lg:px-12 lg:py-28">
           <div>
-            <p className="section-kicker">Field record / public run</p>
+            <p className="section-kicker">{translate("Field record / public run", locale)}</p>
             <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] text-balance sm:text-5xl">
-              A real audit. Zero files changed.
+              {translate("A real audit. Zero files changed.", locale)}
             </h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground">
-              The rn-newarch-audit skill ran the New Architecture readiness audit against
-              Rocket.Chat&apos;s React Native client. It read the manifest, the installed
-              dependencies, and the app&apos;s own native sources, then named five app-local native
-              modules still on legacy APIs — with the New Architecture flag already switched on.
+              {translate(
+                "The rn-newarch-audit skill ran the New Architecture readiness audit against Rocket.Chat's React Native client. It read the manifest, the installed dependencies, and the app's own native sources, then named five app-local native modules still on legacy APIs — with the New Architecture flag already switched on.",
+                locale
+              )}
             </p>
             <dl className="mt-8 max-w-xl border-t border-border">
               {auditFacts.map(([label, value]) => (
@@ -320,7 +339,7 @@ export default function HomePage() {
                   key={label}
                 >
                   <dt className="font-mono text-[0.6rem] tracking-[0.14em] text-muted-foreground uppercase">
-                    {label}
+                    {translate(label, locale)}
                   </dt>
                   <dd className="font-mono text-sm text-foreground">{value}</dd>
                 </div>
@@ -333,7 +352,7 @@ export default function HomePage() {
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  Read the full example
+                  {translate("Read the full example", locale)}
                   <ArrowRight className="size-4" />
                 </a>
               </Button>
@@ -346,9 +365,10 @@ export default function HomePage() {
               </pre>
             </div>
             <p className="mt-5 border-t border-border pt-5 font-mono text-[0.64rem] leading-5 text-muted-foreground">
-              Abridged. The full run also lists the 4 archived dependencies and the 5 app-local
-              native modules by path, and exits 1 on a needs-review verdict so the same command
-              works as a CI gate.
+              {translate(
+                "Abridged. The full run also lists the 4 archived dependencies and the 5 app-local native modules by path, and exits 1 on a needs-review verdict so the same command works as a CI gate.",
+                locale
+              )}
             </p>
           </div>
         </div>
@@ -359,16 +379,16 @@ export default function HomePage() {
         <div className="relative mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_auto] lg:items-end lg:px-12 lg:py-24">
           <div>
             <p className="font-mono text-[0.68rem] tracking-[0.18em] text-primary-inverse-ink uppercase">
-              First recommended module / 01
+              {translate("First recommended module / 01", locale)}
             </p>
             <h2 className="mt-5 max-w-4xl font-display text-5xl leading-[0.9] font-semibold tracking-[-0.055em] text-balance sm:text-7xl">
-              Put an audit-first agent on the React Native maintenance loop.
+              {translate("Put an audit-first agent on the React Native maintenance loop.", locale)}
             </h2>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
             <Button asChild className="h-12 rounded-none px-6">
-              <Link href="/rn-agents-kit">
-                Explore RN Agents Kit
+              <Link href={localePath("/rn-agents-kit", locale)}>
+                {translate("Explore RN Agents Kit", locale)}
                 <ArrowRight className="size-4" />
               </Link>
             </Button>
@@ -383,7 +403,7 @@ export default function HomePage() {
                 target="_blank"
               >
                 <Github className="size-4" />
-                View all public work
+                {translate("View all public work", locale)}
               </a>
             </Button>
           </div>

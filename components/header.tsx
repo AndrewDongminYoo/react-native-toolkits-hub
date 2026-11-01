@@ -1,17 +1,22 @@
 "use client";
 
-import { Github, Menu, Moon, Palette, Sun, X } from "lucide-react";
+import { Menu, Moon, Palette, Sun, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import { Github } from "@/components/brand-icons";
 import { useSiteTheme } from "@/contexts/theme-context";
 import { CODE_THEMES } from "@/lib/code-themes";
+import { localePath, type LocaleProps, pick } from "@/lib/locale";
 import { toolkits } from "@/lib/toolkits";
 import { cn } from "@/lib/utils";
 
-export function Header() {
+export function Header({ locale = "en" }: LocaleProps) {
   const pathname = usePathname();
+  const isKorean = locale === "ko";
+  const englishPath = isKorean ? pathname.replace(/^\/ko(?=\/|$)/, "") || "/" : pathname;
+  const alternatePath = localePath(englishPath, isKorean ? "en" : "ko");
   const { siteTheme, toggleSiteTheme, codeThemeId, setCodeThemeId } = useSiteTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [themePickerOpen, setThemePickerOpen] = useState(false);
@@ -37,6 +42,20 @@ export function Header() {
   const resolvedSiteTheme = mounted ? siteTheme : "light";
   const resolvedCodeThemeId = mounted ? codeThemeId : "github";
   const activeTheme = CODE_THEMES.find((theme) => theme.id === resolvedCodeThemeId);
+  const isDark = resolvedSiteTheme === "dark";
+  const themeToggleLabel = isDark
+    ? pick(locale, "Switch to light mode", "라이트 모드로 전환")
+    : pick(locale, "Switch to dark mode", "다크 모드로 전환");
+  const themeName = isDark
+    ? pick(locale, "Light mode", "라이트 모드")
+    : pick(locale, "Dark mode", "다크 모드");
+
+  // The language link carries the current query and fragment. They are only known in the browser
+  // and can change without a re-render, so refresh the href on every interaction that can follow
+  // it: pointer down (left, middle, and right click, touch), keyboard focus, and click.
+  function syncLanguageHref(event: { currentTarget: HTMLAnchorElement }) {
+    event.currentTarget.href = `${alternatePath}${window.location.search}${window.location.hash}`;
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/88 backdrop-blur-xl">
@@ -44,7 +63,7 @@ export function Header() {
         <div className="flex h-17 items-center justify-between gap-5">
           <Link
             className="group flex shrink-0 items-center gap-3"
-            href="/"
+            href={localePath("/", locale)}
             onClick={() => setMobileMenuOpen(false)}
           >
             <span className="flex size-8 items-center justify-center border border-primary bg-primary-solid font-mono text-[0.65rem] font-bold text-primary-foreground transition-transform group-hover:-rotate-3">
@@ -55,17 +74,20 @@ export function Header() {
             </span>
           </Link>
 
-          <nav aria-label="Toolkit navigation" className="hidden items-center gap-1 lg:flex">
+          <nav
+            aria-label={pick(locale, "Toolkit navigation", "도구 탐색")}
+            className="hidden items-center gap-1 lg:flex"
+          >
             {toolkits.map((toolkit) => (
               <Link
-                aria-current={pathname === toolkit.route ? "page" : undefined}
+                aria-current={englishPath === toolkit.route ? "page" : undefined}
                 className={cn(
                   "border-b px-3 py-2 font-mono text-[0.68rem] tracking-[0.08em] uppercase transition-colors",
-                  pathname === toolkit.route
+                  englishPath === toolkit.route
                     ? "border-primary text-foreground"
                     : "border-transparent text-muted-foreground hover:border-border hover:text-foreground"
                 )}
-                href={toolkit.route}
+                href={localePath(toolkit.route, locale)}
                 key={toolkit.slug}
               >
                 {toolkit.shortName}
@@ -77,7 +99,7 @@ export function Header() {
             <div className="relative" ref={themePickerRef}>
               <button
                 aria-expanded={themePickerOpen}
-                aria-label="Select code theme"
+                aria-label={pick(locale, "Select code theme", "코드 테마 선택")}
                 className="flex h-9 items-center gap-2 border border-transparent px-2.5 font-mono text-[0.65rem] tracking-[0.08em] text-muted-foreground uppercase transition-colors hover:border-border hover:text-foreground"
                 onClick={() => setThemePickerOpen((open) => !open)}
               >
@@ -109,9 +131,7 @@ export function Header() {
             </div>
 
             <button
-              aria-label={
-                resolvedSiteTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"
-              }
+              aria-label={themeToggleLabel}
               className="flex size-9 items-center justify-center border border-transparent text-muted-foreground transition-colors hover:border-border hover:text-foreground"
               onClick={toggleSiteTheme}
             >
@@ -123,7 +143,11 @@ export function Header() {
             </button>
 
             <a
-              aria-label="Open AndrewDongminYoo on GitHub"
+              aria-label={pick(
+                locale,
+                "Open AndrewDongminYoo on GitHub",
+                "AndrewDongminYoo GitHub 열기"
+              )}
               className="flex size-9 items-center justify-center border border-border text-foreground transition-colors hover:border-primary hover:text-primary"
               href="https://github.com/AndrewDongminYoo"
               rel="noopener noreferrer"
@@ -133,10 +157,34 @@ export function Header() {
             </a>
           </div>
 
+          <a
+            aria-label={pick(locale, "한국어로 전환", "Switch to English")}
+            className="ml-auto inline-flex h-10 shrink-0 items-center gap-2 border border-border px-3 text-xs font-medium text-muted-foreground transition-colors hover:border-primary hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring lg:ml-0"
+            href={alternatePath}
+            hrefLang={isKorean ? "en" : "ko"}
+            lang={isKorean ? "en" : "ko"}
+            onClick={(event) => {
+              syncLanguageHref(event);
+              setMobileMenuOpen(false);
+            }}
+            onFocus={syncLanguageHref}
+            onPointerDown={syncLanguageHref}
+          >
+            <span className={isKorean ? "text-foreground" : undefined}>한국어</span>
+            <span aria-hidden="true" className="text-border">
+              /
+            </span>
+            <span className={!isKorean ? "text-foreground" : undefined}>EN</span>
+          </a>
+
           <button
             aria-controls="mobile-navigation"
             aria-expanded={mobileMenuOpen}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-label={
+              mobileMenuOpen
+                ? pick(locale, "Close menu", "메뉴 닫기")
+                : pick(locale, "Open menu", "메뉴 열기")
+            }
             className="flex size-10 items-center justify-center border border-border text-foreground lg:hidden"
             onClick={() => setMobileMenuOpen((open) => !open)}
           >
@@ -155,12 +203,15 @@ export function Header() {
           id="mobile-navigation"
           inert={!mobileMenuOpen}
         >
-          <nav aria-label="Mobile toolkit navigation" className="grid gap-px bg-border">
+          <nav
+            aria-label={pick(locale, "Mobile toolkit navigation", "모바일 도구 탐색")}
+            className="grid gap-px bg-border"
+          >
             {toolkits.map((toolkit) => (
               <Link
-                aria-current={pathname === toolkit.route ? "page" : undefined}
+                aria-current={englishPath === toolkit.route ? "page" : undefined}
                 className="flex items-center justify-between bg-background px-4 py-3.5 text-sm font-semibold text-foreground"
-                href={toolkit.route}
+                href={localePath(toolkit.route, locale)}
                 key={toolkit.slug}
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -174,7 +225,7 @@ export function Header() {
 
           <fieldset className="mt-5 border-t border-border pt-5">
             <legend className="px-1 font-mono text-[0.65rem] tracking-[0.12em] text-muted-foreground uppercase">
-              Code theme
+              {pick(locale, "Code theme", "코드 테마")}
             </legend>
             <div className="mt-3 grid grid-cols-2 gap-px bg-border">
               {CODE_THEMES.map((theme) => (
@@ -198,9 +249,7 @@ export function Header() {
 
           <div className="mt-5 flex items-center justify-between gap-3">
             <button
-              aria-label={
-                resolvedSiteTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"
-              }
+              aria-label={themeToggleLabel}
               className="flex h-10 flex-1 items-center justify-center gap-2 border border-border font-mono text-xs text-muted-foreground"
               onClick={toggleSiteTheme}
             >
@@ -209,7 +258,7 @@ export function Header() {
               ) : (
                 <Moon className="size-4" />
               )}
-              {resolvedSiteTheme === "dark" ? "Light mode" : "Dark mode"}
+              {themeName}
             </button>
             <a
               className="flex h-10 flex-1 items-center justify-center gap-2 border border-border font-mono text-xs text-muted-foreground"

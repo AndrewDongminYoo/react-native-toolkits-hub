@@ -12,7 +12,7 @@ pnpm lint:fix      # Apply ESLint fixes
 pnpm typecheck     # Run tsc --noEmit
 pnpm format        # Apply Prettier formatting
 pnpm format:check  # Verify Prettier formatting
-pnpm test          # Run the dependency-free route tests
+pnpm test          # Run the dependency-free route and translation-key tests
 ```
 
 `pnpm test` needs a server already running, and reads `SITE_BASE_URL` (default `http://127.0.0.1:3000`).
@@ -34,7 +34,7 @@ The root route is a product hub, and each public product has a first-class root-
 `lib/toolkits.ts` is the shared catalog for product names, internal routes, public destinations, status labels, and visual accents.
 Keep detailed product copy in the individual route file because each tool has a materially different workflow.
 
-The existing `rn-typed-assets` documentation sections remain isolated under `components/sections/` and are composed by `app/rn-typed-assets/page.tsx`.
+The existing `rn-typed-assets` documentation sections remain isolated under `components/sections/` and are composed by `components/pages/assets-page.tsx` for both locales.
 Preserve their public section identifiers when editing them because legacy root fragments redirect to this route.
 
 ## Client boundary
@@ -68,4 +68,4 @@ Do not expose private development plans, legal notes, source history, paid-tier 
 - Use `@/*` path aliases for project imports.
 - Use `import type` for type-only imports.
 - Let the configured import and JSX prop-order rules determine ordering.
-- Keep code blocks and human-facing product documentation in English.
+- Keep code blocks, commands, API identifiers, and product names in English. English routes live under `app/(english)` without a URL prefix; Korean equivalents live under `app/(korean)/ko`. Shared page components accept a `locale` prop, and `lib/ko.ts` contains Korean copy keyed by the English source text; client components use `pick` from `lib/locale.ts` so the dictionary stays out of the browser bundle. Do not pass product names or identifiers through `translate()`. Use `localePath` for internal navigation and keep both locales' content and section identifiers in sync.

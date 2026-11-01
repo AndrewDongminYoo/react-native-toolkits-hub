@@ -1,13 +1,19 @@
-import "./globals.css";
+import "@/app/globals.css";
 
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Instrument_Sans, JetBrains_Mono } from "next/font/google";
+import {
+  Bricolage_Grotesque,
+  Instrument_Sans,
+  JetBrains_Mono,
+  Noto_Sans_KR,
+} from "next/font/google";
 import type { ReactNode } from "react";
 
 import { Header } from "@/components/header";
 import { SiteFooter } from "@/components/site-footer";
 import { ThemeProvider } from "@/contexts/theme-context";
+import type { Locale } from "@/lib/locale";
 import { siteDescription, siteName, siteUrl } from "@/lib/site";
 
 const display = Bricolage_Grotesque({
@@ -23,6 +29,13 @@ const sans = Instrument_Sans({
 const mono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
+});
+
+const koreanFont = Noto_Sans_KR({
+  subsets: ["latin"],
+  variable: "--font-korean",
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -49,23 +62,27 @@ export const metadata: Metadata = {
     siteName,
     title: siteName,
     type: "website",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+export default function SiteLayout({
+  children,
+  locale,
+}: Readonly<{ children: ReactNode; locale: Locale }>) {
   return (
     <html
-      className={`${display.variable} ${sans.variable} ${mono.variable} bg-background`}
+      className={`${display.variable} ${sans.variable} ${mono.variable} ${locale === "ko" ? koreanFont.variable : ""} bg-background`}
       data-scroll-behavior="smooth"
-      lang="en"
+      lang={locale}
       suppressHydrationWarning
     >
       <body className="min-h-screen font-sans antialiased" suppressHydrationWarning>
         <ThemeProvider>
           <div className="flex min-h-screen flex-col">
-            <Header />
+            <Header locale={locale} />
             <div className="flex-1">{children}</div>
-            <SiteFooter />
+            <SiteFooter locale={locale} />
           </div>
           {process.env.NODE_ENV === "production" && <Analytics />}
         </ThemeProvider>

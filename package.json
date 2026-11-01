@@ -10,7 +10,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
     "typecheck": "tsc --noEmit",
-    "test": "node --test tests/site-routes.test.mjs",
+    "test": "node --test tests/site-routes.test.mjs tests/translation-keys.test.mjs",
     "format:check": "prettier . --check"
   },
   "dependencies": {
@@ -18,7 +18,7 @@
     "@vercel/analytics": "1.6.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.577.0",
+    "lucide-react": "^1.66.0",
     "next": "16.4.3",
     "react": "19.3.1",
     "react-dom": "19.3.1",

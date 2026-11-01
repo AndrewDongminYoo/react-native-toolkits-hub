@@ -1,19 +1,13 @@
-import {
-  ArrowRight,
-  Braces,
-  Component,
-  Figma,
-  Github,
-  Layers3,
-  Palette,
-  Sparkles,
-} from "lucide-react";
+import { ArrowRight, Braces, Component, Layers3, Palette, Sparkles } from "lucide-react";
 import type { CSSProperties } from "react";
 
+import { Figma, Github } from "@/components/brand-icons";
 import { ProductHero } from "@/components/product-hero";
 import { Button } from "@/components/ui/button";
+import type { Locale, LocaleProps } from "@/lib/locale";
 import { productMetadata } from "@/lib/site";
 import { getToolkit } from "@/lib/toolkits";
+import { translate } from "@/lib/translate";
 
 const pipeline = [
   {
@@ -80,20 +74,33 @@ const capabilities = [
 
 const toolkit = getToolkit("design-to-nativewind");
 
-export const metadata = productMetadata(
-  toolkit,
-  "A Figma plugin that deterministically converts selected designs into React Native and NativeWind component code."
-);
+export function metadataFor(locale: Locale) {
+  return productMetadata(
+    toolkit,
+    translate(
+      "A Figma plugin that deterministically converts selected designs into React Native and NativeWind component code.",
+      locale
+    ),
+    locale
+  );
+}
 
-export default function DesignToNativeWindPage() {
+export default function DesignToNativeWindPage({ locale = "en" }: LocaleProps) {
   return (
     <main
       className="tool-accent-scope"
       style={{ "--tool-accent": toolkit.accent } as CSSProperties}
     >
       <ProductHero
-        description="The conversion core operates on a plain intermediate representation. React Native and NativeWind are the first-class output; naming and structural cleanup can optionally use an assisted pass."
-        intro="Turn the selected Figma subtree into React Native code without turning the design handoff into guesswork."
+        description={translate(
+          "The conversion core operates on a plain intermediate representation. React Native and NativeWind are the first-class output; naming and structural cleanup can optionally use an assisted pass.",
+          locale
+        )}
+        intro={translate(
+          "Turn the selected Figma subtree into React Native code without turning the design handoff into guesswork.",
+          locale
+        )}
+        locale={locale}
         toolkit={toolkit}
       >
         <div className="space-y-3 font-mono text-xs">
@@ -109,7 +116,7 @@ export default function DesignToNativeWindPage() {
             >
               <span className="text-muted-foreground">0{index + 1}</span>
               <span>{signal}</span>
-              <span className="text-[var(--tool-accent-ink)]">{value}</span>
+              <span className="text-[var(--tool-accent-ink)]">{translate(value, locale)}</span>
             </div>
           ))}
         </div>
@@ -118,14 +125,16 @@ export default function DesignToNativeWindPage() {
       <section className="border-b border-border" id="start">
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
           <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-            <p className="section-kicker">Conversion pipeline</p>
+            <p className="section-kicker">{translate("Conversion pipeline", locale)}</p>
             <div>
               <h2 className="font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] sm:text-6xl">
-                Selection in. Reviewable component out.
+                {translate("Selection in. Reviewable component out.", locale)}
               </h2>
               <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground">
-                The Figma-dependent extraction stays at the edge. Mapping and generation remain
-                isolated from the host runtime so the core behavior can be tested against plain IR.
+                {translate(
+                  "The Figma-dependent extraction stays at the edge. Mapping and generation remain isolated from the host runtime so the core behavior can be tested against plain IR.",
+                  locale
+                )}
               </p>
             </div>
           </div>
@@ -140,9 +149,11 @@ export default function DesignToNativeWindPage() {
                   </span>
                 </div>
                 <h3 className="mt-12 font-display text-2xl font-semibold tracking-[-0.035em]">
-                  {step.label}
+                  {translate(step.label, locale)}
                 </h3>
-                <p className="mt-4 text-sm leading-6 text-muted-foreground">{step.description}</p>
+                <p className="mt-4 text-sm leading-6 text-muted-foreground">
+                  {translate(step.description, locale)}
+                </p>
                 {index < pipeline.length - 1 && (
                   <ArrowRight className="absolute right-5 bottom-5 size-4 text-border lg:top-8 lg:-right-2.5 lg:bottom-auto lg:z-10" />
                 )}
@@ -155,9 +166,9 @@ export default function DesignToNativeWindPage() {
       <section className="field-grid border-b border-border bg-card/35">
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
           <div className="max-w-3xl">
-            <p className="section-kicker">Current capability</p>
+            <p className="section-kicker">{translate("Current capability", locale)}</p>
             <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] sm:text-6xl">
-              Deterministic where it matters. Assisted only when invited.
+              {translate("Deterministic where it matters. Assisted only when invited.", locale)}
             </h2>
           </div>
           <div className="mt-14 grid gap-px bg-border md:grid-cols-2 xl:grid-cols-3">
@@ -170,10 +181,10 @@ export default function DesignToNativeWindPage() {
                   </span>
                 </div>
                 <h3 className="mt-10 font-display text-2xl font-semibold tracking-[-0.035em]">
-                  {capability.title}
+                  {translate(capability.title, locale)}
                 </h3>
                 <p className="mt-4 text-sm leading-6 text-muted-foreground">
-                  {capability.description}
+                  {translate(capability.description, locale)}
                 </p>
               </article>
             ))}
@@ -184,22 +195,24 @@ export default function DesignToNativeWindPage() {
       <section className="border-b border-border">
         <div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:px-12 lg:py-28">
           <div>
-            <p className="section-kicker">Output boundary</p>
+            <p className="section-kicker">{translate("Output boundary", locale)}</p>
             <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] sm:text-5xl">
-              React Native first.
+              {translate("React Native first.", locale)}
             </h2>
           </div>
           <div>
             <article className="bg-card p-7">
               <p className="font-mono text-[0.65rem] tracking-[0.13em] text-[var(--tool-accent-ink)] uppercase">
-                Current target
+                {translate("Current target", locale)}
               </p>
               <h3 className="mt-5 font-display text-3xl font-semibold tracking-[-0.04em]">
                 React Native + NativeWind
               </h3>
               <p className="mt-4 text-sm leading-6 text-muted-foreground">
-                Expo-compatible component output with NativeWind utility classes is the shipped,
-                first-class renderer.
+                {translate(
+                  "Expo-compatible component output with NativeWind utility classes is the shipped, first-class renderer.",
+                  locale
+                )}
               </p>
             </article>
           </div>
@@ -210,17 +223,17 @@ export default function DesignToNativeWindPage() {
         <div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_auto] lg:items-end lg:px-12 lg:py-24">
           <div>
             <p className="font-mono text-[0.68rem] tracking-[0.18em] text-[var(--tool-accent-inverse-ink)] uppercase">
-              Figma Community / public plugin
+              {translate("Figma Community / public plugin", locale)}
             </p>
             <h2 className="mt-5 max-w-4xl font-display text-5xl leading-[0.92] font-semibold tracking-[-0.055em] text-balance sm:text-7xl">
-              Take the conversion loop into Figma.
+              {translate("Take the conversion loop into Figma.", locale)}
             </h2>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
             <Button asChild className="h-12 rounded-none px-6">
               <a href={toolkit.productUrl} rel="noopener noreferrer" target="_blank">
                 <Figma className="size-4" />
-                Open the plugin
+                {translate("Open the plugin", locale)}
               </a>
             </Button>
             <Button
@@ -230,7 +243,7 @@ export default function DesignToNativeWindPage() {
             >
               <a href={toolkit.githubUrl} rel="noopener noreferrer" target="_blank">
                 <Github className="size-4" />
-                Review the source
+                {translate("Review the source", locale)}
               </a>
             </Button>
           </div>

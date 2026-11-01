@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import { useSiteTheme } from "@/contexts/theme-context";
 import { resolveCodeTheme } from "@/lib/code-themes";
+import { type LocaleProps, pick } from "@/lib/locale";
 import {
   getLanguageFromFilename,
   highlightCode,
@@ -14,7 +15,7 @@ import {
 } from "@/lib/syntax-highlighter";
 import { cn } from "@/lib/utils";
 
-interface CodeBlockProps {
+interface CodeBlockProps extends LocaleProps {
   code: string;
   language?: string;
   filename?: string;
@@ -28,6 +29,7 @@ export function CodeBlock({
   filename,
   className,
   showLineNumbers = false,
+  locale = "en",
 }: CodeBlockProps) {
   const { siteTheme, codeThemeId } = useSiteTheme();
   const isDark = siteTheme === "dark";
@@ -44,6 +46,9 @@ export function CodeBlock({
   const resolvedLanguage = filename ? getLanguageFromFilename(filename) : resolveLanguage(language);
   const languageInfo = SUPPORTED_LANGUAGES[resolvedLanguage as SupportedLanguage];
   const languageDisplayName = languageInfo?.name || resolvedLanguage;
+  const copyLabel = copied
+    ? pick(locale, "Copied", "복사됨")
+    : pick(locale, "Copy code", "코드 복사");
 
   const highlightedHtml =
     highlightedResult?.code === code &&
@@ -93,7 +98,7 @@ export function CodeBlock({
             </span>
           </div>
           <button
-            aria-label="Copy code"
+            aria-label={copyLabel}
             className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             onClick={copyToClipboard}
           >
@@ -107,7 +112,7 @@ export function CodeBlock({
         {/* Floating copy button when no header */}
         {!filename && !language && (
           <button
-            aria-label="Copy code"
+            aria-label={copyLabel}
             className="absolute top-3 right-3 z-10 rounded-md bg-muted/80 p-1.5 text-muted-foreground opacity-0 transition-all group-hover:opacity-100 hover:bg-muted hover:text-foreground"
             onClick={copyToClipboard}
           >

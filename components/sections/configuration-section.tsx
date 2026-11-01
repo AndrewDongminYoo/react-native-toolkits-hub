@@ -1,4 +1,6 @@
 import { CodeBlock } from "@/components/code-block";
+import type { LocaleProps } from "@/lib/locale";
+import { translate } from "@/lib/translate";
 
 const configCode = `// rn-typed-assets.config.js
 module.exports = {
@@ -60,57 +62,66 @@ const options = [
   ["typeImport / inlineType", "TypeScript type configuration"],
 ];
 
-export function ConfigurationSection() {
+export function ConfigurationSection({ locale = "en" }: LocaleProps) {
   return (
     <section className="border-b border-border" id="configuration">
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
         <div className="max-w-3xl">
-          <p className="section-kicker">Configuration / optional</p>
+          <p className="section-kicker">{translate("Configuration / optional", locale)}</p>
           <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] text-balance sm:text-6xl">
-            Zero config by default, explicit when overridden.
+            {translate("Zero config by default, explicit when overridden.", locale)}
           </h2>
           <p className="mt-5 text-base leading-7 text-muted-foreground">
-            The defaults cover the standard layout. A config file at the project root replaces only
-            the fields it names, so omitting it accepts every default.
+            {translate(
+              "The defaults cover the standard layout. A config file at the project root replaces only the fields it names, so omitting it accepts every default.",
+              locale
+            )}
           </p>
         </div>
 
         <div className="mt-14 grid gap-10 lg:grid-cols-2">
           <div className="min-w-0">
             <h3 className="font-display text-2xl font-semibold tracking-[-0.035em]">
-              Full configuration
+              {translate("Full configuration", locale)}
             </h3>
             <p className="mt-3 mb-6 max-w-lg text-sm leading-6 text-muted-foreground">
-              Every field below is an override. The commented value is what the CLI uses when the
-              field is absent.
+              {translate(
+                "Every field below is an override. The commented value is what the CLI uses when the field is absent.",
+                locale
+              )}
             </p>
             <CodeBlock
               code={configCode}
               filename="rn-typed-assets.config.js"
               language="javascript"
+              locale={locale}
               showLineNumbers
             />
           </div>
 
           <div className="min-w-0">
             <h3 className="font-display text-2xl font-semibold tracking-[-0.035em]">
-              Adding custom types
+              {translate("Adding custom types", locale)}
             </h3>
             <p className="mt-3 mb-6 max-w-lg text-sm leading-6 text-muted-foreground">
-              Any type outside the three defaults can be declared under types. The audit command
-              discovers it automatically through the exportName to type reverse map.
+              {translate(
+                "Any type outside the three defaults can be declared under types. The audit command discovers it automatically through the exportName to type reverse map.",
+                locale
+              )}
             </p>
-            <CodeBlock code={customTypeCode} language="javascript" />
+            <CodeBlock code={customTypeCode} language="javascript" locale={locale} />
 
             <div className="mt-8 border border-border bg-card p-6 sm:p-7">
               <p className="font-mono text-[0.62rem] tracking-[0.14em] text-muted-foreground uppercase">
-                Configuration options
+                {translate("Configuration options", locale)}
               </p>
               <dl className="mt-5 border-t border-border">
                 {options.map(([name, meaning]) => (
                   <div className="border-b border-border py-3" key={name}>
                     <dt className="font-mono text-sm text-[var(--tool-accent-ink)]">{name}</dt>
-                    <dd className="mt-1 text-sm leading-6 text-muted-foreground">{meaning}</dd>
+                    <dd className="mt-1 text-sm leading-6 text-muted-foreground">
+                      {translate(meaning, locale)}
+                    </dd>
                   </div>
                 ))}
               </dl>

@@ -1,6 +1,8 @@
 import { GitBranch, Shield } from "lucide-react";
 
 import { CodeBlock } from "@/components/code-block";
+import type { LocaleProps } from "@/lib/locale";
+import { translate } from "@/lib/translate";
 
 const githubActionsCode = `# .github/workflows/ci.yml
 - name: Verify asset manifest is up to date
@@ -31,18 +33,20 @@ const integrations = [
   },
 ];
 
-export function CISection() {
+export function CISection({ locale = "en" }: LocaleProps) {
   return (
     <section className="field-grid border-b border-border bg-card/35" id="ci">
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
         <div className="max-w-3xl">
-          <p className="section-kicker">CI integration / 02</p>
+          <p className="section-kicker">{translate("CI integration / 02", locale)}</p>
           <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] text-balance sm:text-6xl">
-            Fail the build when the manifest drifts.
+            {translate("Fail the build when the manifest drifts.", locale)}
           </h2>
           <p className="mt-5 text-base leading-7 text-muted-foreground">
-            Regenerate in CI and diff the output, or regenerate on commit and stage it. Both catch
-            the same drift between the manifest and the filesystem.
+            {translate(
+              "Regenerate in CI and diff the output, or regenerate on commit and stage it. Both catch the same drift between the manifest and the filesystem.",
+              locale
+            )}
           </p>
         </div>
 
@@ -54,10 +58,14 @@ export function CISection() {
                 {integration.title}
               </h3>
               <p className="mt-4 max-w-lg text-sm leading-6 text-muted-foreground">
-                {integration.description}
+                {translate(integration.description, locale)}
               </p>
               <div className="mt-8">
-                <CodeBlock code={integration.code} language={integration.language} />
+                <CodeBlock
+                  code={integration.code}
+                  language={integration.language}
+                  locale={locale}
+                />
               </div>
             </article>
           ))}

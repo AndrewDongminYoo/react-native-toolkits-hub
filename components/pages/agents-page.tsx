@@ -6,7 +6,6 @@ import {
   CircleArrowUp,
   ClipboardCheck,
   FileSearch,
-  Github,
   ImageMinus,
   Layers,
   Radio,
@@ -15,11 +14,14 @@ import {
 } from "lucide-react";
 import type { CSSProperties } from "react";
 
+import { Github } from "@/components/brand-icons";
 import { CodeBlock } from "@/components/code-block";
 import { ProductHero } from "@/components/product-hero";
 import { Button } from "@/components/ui/button";
+import type { Locale, LocaleProps } from "@/lib/locale";
 import { productMetadata } from "@/lib/site";
 import { getToolkit } from "@/lib/toolkits";
+import { translate } from "@/lib/translate";
 
 const installCode = `/plugin marketplace add AndrewDongminYoo/rn-agents-kit
 /plugin install rn-agents-kit@rn-agents-kit`;
@@ -106,20 +108,33 @@ const contract = [
 
 const toolkit = getToolkit("rn-agents-kit");
 
-export const metadata = productMetadata(
-  toolkit,
-  "Ten audit-first agent skills for React Native project snapshots, asset hygiene, New Architecture readiness, code review, device capture and QA, Metro console output, CI artifacts, EAS profiles, and upgrade planning."
-);
+export function metadataFor(locale: Locale) {
+  return productMetadata(
+    toolkit,
+    translate(
+      "Ten audit-first agent skills for React Native project snapshots, asset hygiene, New Architecture readiness, code review, device capture and QA, Metro console output, CI artifacts, EAS profiles, and upgrade planning.",
+      locale
+    ),
+    locale
+  );
+}
 
-export default function AgentsKitPage() {
+export default function AgentsKitPage({ locale = "en" }: LocaleProps) {
   return (
     <main
       className="tool-accent-scope"
       style={{ "--tool-accent": toolkit.accent } as CSSProperties}
     >
       <ProductHero
-        description="The public v0.2.1 release packages ten narrow skills. Each one owns a specific maintenance job and keeps evidence, consent, and review boundaries explicit."
-        intro="Give your coding agent a React Native maintenance kit that reads first and earns every change."
+        description={translate(
+          "The public v0.2.1 release packages ten narrow skills. Each one owns a specific maintenance job and keeps evidence, consent, and review boundaries explicit.",
+          locale
+        )}
+        intro={translate(
+          "Give your coding agent a React Native maintenance kit that reads first and earns every change.",
+          locale
+        )}
+        locale={locale}
         toolkit={toolkit}
       >
         <div className="space-y-3 font-mono text-xs">
@@ -135,7 +150,7 @@ export default function AgentsKitPage() {
             >
               <span className="text-muted-foreground">0{index + 1}</span>
               <span>{signal}</span>
-              <span className="text-[var(--tool-accent-ink)]">{value}</span>
+              <span className="text-[var(--tool-accent-ink)]">{translate(value, locale)}</span>
             </div>
           ))}
         </div>
@@ -144,22 +159,26 @@ export default function AgentsKitPage() {
       <section className="border-b border-border" id="start">
         <div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.75fr_1.25fr] lg:px-12 lg:py-28">
           <div>
-            <p className="section-kicker">Install / Claude Code</p>
+            <p className="section-kicker">{translate("Install / Claude Code", locale)}</p>
             <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] sm:text-6xl">
-              Two commands. Ten focused skills.
+              {translate("Two commands. Ten focused skills.", locale)}
             </h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground">
-              Add the public marketplace, then install the v0.2.1 plugin from that source. The
-              public README currently documents this Claude Code installation path.
+              {translate(
+                "Add the public marketplace, then install the v0.2.1 plugin from that source. The public README currently documents this Claude Code installation path.",
+                locale
+              )}
             </p>
           </div>
           <div className="lab-panel min-w-0 border border-border bg-card p-5 sm:p-7">
-            <CodeBlock code={installCode} language="text" />
+            <CodeBlock code={installCode} language="text" locale={locale} />
             <div className="mt-5 flex items-start gap-3 border-t border-border pt-5">
               <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-[var(--tool-accent)]" />
               <p className="text-sm leading-6 text-muted-foreground">
-                The public distribution is licensed under Apache-2.0 and contains the shipped
-                skills, plugin manifests, changelog, contribution guide, and example artifacts.
+                {translate(
+                  "The public distribution is licensed under Apache-2.0 and contains the shipped skills, plugin manifests, changelog, contribution guide, and example artifacts.",
+                  locale
+                )}
               </p>
             </div>
           </div>
@@ -169,9 +188,9 @@ export default function AgentsKitPage() {
       <section className="field-grid border-b border-border bg-card/35">
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
           <div className="max-w-3xl">
-            <p className="section-kicker">Skill inventory / 10</p>
+            <p className="section-kicker">{translate("Skill inventory / 10", locale)}</p>
             <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] sm:text-6xl">
-              One skill, one maintenance job.
+              {translate("One skill, one maintenance job.", locale)}
             </h2>
           </div>
           <div className="mt-14 grid gap-px bg-border md:grid-cols-2 xl:grid-cols-3">
@@ -186,9 +205,11 @@ export default function AgentsKitPage() {
                 <h3 className="mt-10 font-display text-2xl font-semibold tracking-[-0.035em]">
                   {skill.name}
                 </h3>
-                <p className="mt-4 text-sm leading-6 text-muted-foreground">{skill.description}</p>
+                <p className="mt-4 text-sm leading-6 text-muted-foreground">
+                  {translate(skill.description, locale)}
+                </p>
                 <p className="mt-7 border-t border-border pt-3 font-mono text-[0.64rem] tracking-[0.12em] text-[var(--tool-accent-ink)] uppercase">
-                  {skill.posture}
+                  {translate(skill.posture, locale)}
                 </p>
               </article>
             ))}
@@ -200,9 +221,9 @@ export default function AgentsKitPage() {
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
           <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
             <div>
-              <p className="section-kicker">Operating contract</p>
+              <p className="section-kicker">{translate("Operating contract", locale)}</p>
               <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] sm:text-5xl">
-                Audit-first is a sequence, not a badge.
+                {translate("Audit-first is a sequence, not a badge.", locale)}
               </h2>
             </div>
             <ol className="border-t border-border">
@@ -213,9 +234,11 @@ export default function AgentsKitPage() {
                 >
                   <span className="font-mono text-xs text-[var(--tool-accent-ink)]">{index}</span>
                   <h3 className="font-display text-2xl font-semibold tracking-[-0.03em]">
-                    {title}
+                    {translate(title, locale)}
                   </h3>
-                  <p className="text-sm leading-6 text-muted-foreground">{description}</p>
+                  <p className="text-sm leading-6 text-muted-foreground">
+                    {translate(description, locale)}
+                  </p>
                 </li>
               ))}
             </ol>
@@ -227,10 +250,10 @@ export default function AgentsKitPage() {
         <div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_auto] lg:items-end lg:px-12 lg:py-24">
           <div>
             <p className="font-mono text-[0.68rem] tracking-[0.18em] text-[var(--tool-accent-inverse-ink)] uppercase">
-              Reproducible evidence / public example
+              {translate("Reproducible evidence / public example", locale)}
             </p>
             <h2 className="mt-5 max-w-4xl font-display text-5xl leading-[0.92] font-semibold tracking-[-0.055em] text-balance sm:text-7xl">
-              See the New Architecture audit run against a public app.
+              {translate("See the New Architecture audit run against a public app.", locale)}
             </h2>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
@@ -240,7 +263,7 @@ export default function AgentsKitPage() {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Open the example
+                {translate("Open the example", locale)}
                 <ArrowRight className="size-4" />
               </a>
             </Button>
@@ -251,7 +274,7 @@ export default function AgentsKitPage() {
             >
               <a href={toolkit.githubUrl} rel="noopener noreferrer" target="_blank">
                 <Github className="size-4" />
-                Review the repository
+                {translate("Review the repository", locale)}
               </a>
             </Button>
           </div>
