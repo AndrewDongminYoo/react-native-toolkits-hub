@@ -6,7 +6,6 @@ import {
   Braces,
   CheckCircle2,
   Eye,
-  Github,
   Layers3,
   Radio,
   ScanLine,
@@ -14,6 +13,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+import { Github } from "@/components/brand-icons";
 import { LegacyHashRedirect } from "@/components/legacy-hash-redirect";
 import { ToolkitCard } from "@/components/toolkit-card";
 import { Button } from "@/components/ui/button";

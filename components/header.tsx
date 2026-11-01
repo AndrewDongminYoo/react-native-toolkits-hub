@@ -1,10 +1,11 @@
 "use client";
 
-import { Github, Menu, Moon, Palette, Sun, X } from "lucide-react";
+import { Menu, Moon, Palette, Sun, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import { Github } from "@/components/brand-icons";
 import { useSiteTheme } from "@/contexts/theme-context";
 import { CODE_THEMES } from "@/lib/code-themes";
 import { localePath, type LocaleProps } from "@/lib/locale";

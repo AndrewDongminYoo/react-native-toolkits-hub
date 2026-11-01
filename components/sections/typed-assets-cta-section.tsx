@@ -1,5 +1,6 @@
-import { ArrowUpRight, Github, Package } from "lucide-react";
+import { ArrowUpRight, Package } from "lucide-react";
 
+import { Github } from "@/components/brand-icons";
 import { Button } from "@/components/ui/button";
 import type { LocaleProps } from "@/lib/locale";
 import { translate } from "@/lib/translate";

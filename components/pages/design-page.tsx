@@ -1,15 +1,7 @@
-import {
-  ArrowRight,
-  Braces,
-  Component,
-  Figma,
-  Github,
-  Layers3,
-  Palette,
-  Sparkles,
-} from "lucide-react";
+import { ArrowRight, Braces, Component, Layers3, Palette, Sparkles } from "lucide-react";
 import type { CSSProperties } from "react";
 
+import { Figma, Github } from "@/components/brand-icons";
 import { ProductHero } from "@/components/product-hero";
 import { Button } from "@/components/ui/button";
 import type { Locale, LocaleProps } from "@/lib/locale";

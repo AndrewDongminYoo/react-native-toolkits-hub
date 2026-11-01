@@ -6,7 +6,6 @@ import {
   CircleArrowUp,
   ClipboardCheck,
   FileSearch,
-  Github,
   ImageMinus,
   Layers,
   Radio,
@@ -15,6 +14,7 @@ import {
 } from "lucide-react";
 import type { CSSProperties } from "react";
 
+import { Github } from "@/components/brand-icons";
 import { CodeBlock } from "@/components/code-block";
 import { ProductHero } from "@/components/product-hero";
 import { Button } from "@/components/ui/button";

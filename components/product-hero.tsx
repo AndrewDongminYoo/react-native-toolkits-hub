@@ -1,6 +1,7 @@
-import { ArrowDown, ArrowUpRight, Github } from "lucide-react";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 import type { CSSProperties, ReactNode } from "react";
 
+import { Github } from "@/components/brand-icons";
 import { Button } from "@/components/ui/button";
 import type { LocaleProps } from "@/lib/locale";
 import type { Toolkit } from "@/lib/toolkits";

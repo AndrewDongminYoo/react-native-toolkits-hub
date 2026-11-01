@@ -1,7 +1,8 @@
-import { ArrowRight, Box, Braces, Database, Github, ScanSearch, ShieldAlert } from "lucide-react";
+import { ArrowRight, Box, Braces, Database, ScanSearch, ShieldAlert } from "lucide-react";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 
+import { Github } from "@/components/brand-icons";
 import { CodeBlock } from "@/components/code-block";
 import { ProductHero } from "@/components/product-hero";
 import { Button } from "@/components/ui/button";
