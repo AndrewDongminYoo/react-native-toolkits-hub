@@ -137,7 +137,9 @@ export function CLIReferenceSection({ locale = "en" }: LocaleProps) {
                               {translate(flag.description, locale)}
                             </td>
                             <td className="border-b border-border py-3 font-mono text-xs text-muted-foreground">
-                              {translate(flag.default, locale)}
+                              {flag.default === "(required)"
+                                ? translate("(required)", locale)
+                                : flag.default}
                             </td>
                           </tr>
                         ))}

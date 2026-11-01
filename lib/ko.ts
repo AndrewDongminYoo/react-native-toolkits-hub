@@ -322,9 +322,9 @@ export const korean: Record<string, string> = {
   "Filename": "파일명",
   "Generated key": "생성된 키",
   "Generated output": "생성 결과",
-  "n1 (numeric prefix → n)": "n1 (숫자 접두사 → n)",
-  "point.png alongside point/ dir": "point.png와 point/ 디렉터리 공존",
-  "pointAsset (collision)": "pointAsset (충돌 처리)",
+  "numeric prefix → n": "숫자 접두사 → n",
+  "alongside point/ dir": "point/ 디렉터리와 공존",
+  "collision": "충돌 처리",
   "Keys are sorted, types are imported per asset type, and the whole object is const so TypeScript narrows every reference.":
     "키를 정렬하고 에셋 종류별 타입을 import합니다. 전체 객체를 const로 선언해 TypeScript가 각 참조의 타입을 좁힐 수 있습니다.",
   "Quick start / 05": "빠른 시작 / 05",

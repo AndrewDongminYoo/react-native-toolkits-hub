@@ -63,12 +63,23 @@ const stages = [
   },
 ];
 
-const normalizationTable = [
-  ["harini-cry.png", "hariniCry"],
-  ["camera_guide.png", "cameraGuide"],
-  ["Info-Filled.png", "infoFilled"],
-  ["1.png", "n1 (numeric prefix → n)"],
-  ["point.png alongside point/ dir", "pointAsset (collision)"],
+// Filenames and keys are identifiers and render verbatim; only the notes are translated.
+const normalizationTable: {
+  filename: string;
+  filenameNote?: string;
+  key: string;
+  keyNote?: string;
+}[] = [
+  { filename: "harini-cry.png", key: "hariniCry" },
+  { filename: "camera_guide.png", key: "cameraGuide" },
+  { filename: "Info-Filled.png", key: "infoFilled" },
+  { filename: "1.png", key: "n1", keyNote: "numeric prefix → n" },
+  {
+    filename: "point.png",
+    filenameNote: "alongside point/ dir",
+    key: "pointAsset",
+    keyNote: "collision",
+  },
 ];
 
 export function HowItWorksSection({ locale = "en" }: LocaleProps) {
@@ -142,13 +153,15 @@ export function HowItWorksSection({ locale = "en" }: LocaleProps) {
                   </tr>
                 </thead>
                 <tbody>
-                  {normalizationTable.map(([filename, key]) => (
+                  {normalizationTable.map(({ filename, filenameNote, key, keyNote }) => (
                     <tr className="text-sm" key={filename}>
                       <td className="border-b border-border py-3 pr-5 font-mono text-muted-foreground">
-                        {translate(filename, locale)}
+                        {filename}
+                        {filenameNote && ` (${translate(filenameNote, locale)})`}
                       </td>
                       <td className="border-b border-border py-3 font-mono text-[var(--tool-accent-ink)]">
-                        {translate(key, locale)}
+                        {key}
+                        {keyNote && ` (${translate(keyNote, locale)})`}
                       </td>
                     </tr>
                   ))}
