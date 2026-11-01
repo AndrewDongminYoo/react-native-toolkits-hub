@@ -8,16 +8,23 @@ import { HeroSection } from "@/components/sections/hero-section";
 import { HowItWorksSection } from "@/components/sections/how-it-works-section";
 import { InstallationSection } from "@/components/sections/installation-section";
 import { TypedAssetsCtaSection } from "@/components/sections/typed-assets-cta-section";
-import type { LocaleProps } from "@/lib/locale";
+import type { Locale, LocaleProps } from "@/lib/locale";
 import { productMetadata } from "@/lib/site";
 import { getToolkit } from "@/lib/toolkits";
+import { translate } from "@/lib/translate";
 
 const toolkit = getToolkit("rn-typed-assets");
 
-export const metadata = productMetadata(
-  toolkit,
-  "Generate typed TypeScript registries for React Native images, SVGs, and Lottie animations, then audit unused assets and rewrite stale references."
-);
+export function metadataFor(locale: Locale) {
+  return productMetadata(
+    toolkit,
+    translate(
+      "Generate typed TypeScript registries for React Native images, SVGs, and Lottie animations, then audit unused assets and rewrite stale references.",
+      locale
+    ),
+    locale
+  );
+}
 
 export default function TypedAssetsPage({ locale = "en" }: LocaleProps) {
   return (

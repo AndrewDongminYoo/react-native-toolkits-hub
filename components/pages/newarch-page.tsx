@@ -5,7 +5,7 @@ import type { CSSProperties } from "react";
 import { CodeBlock } from "@/components/code-block";
 import { ProductHero } from "@/components/product-hero";
 import { Button } from "@/components/ui/button";
-import { localePath, type LocaleProps } from "@/lib/locale";
+import { type Locale, localePath, type LocaleProps } from "@/lib/locale";
 import { productMetadata } from "@/lib/site";
 import { getToolkit } from "@/lib/toolkits";
 import { translate } from "@/lib/translate";
@@ -54,10 +54,16 @@ const signalRows = [
 
 const toolkit = getToolkit("rn-newarch-ready");
 
-export const metadata = productMetadata(
-  toolkit,
-  "A read-only, local-first React Native New Architecture readiness audit for dependencies, settings, and app-local native modules."
-);
+export function metadataFor(locale: Locale) {
+  return productMetadata(
+    toolkit,
+    translate(
+      "A read-only, local-first React Native New Architecture readiness audit for dependencies, settings, and app-local native modules.",
+      locale
+    ),
+    locale
+  );
+}
 
 export default function NewArchitectureReadyPage({ locale = "en" }: LocaleProps) {
   return (

@@ -1,6 +1,6 @@
-import DesignPage from "@/components/pages/design-page";
+import DesignPage, { metadataFor } from "@/components/pages/design-page";
 
-export { metadata } from "@/components/pages/design-page";
+export const metadata = metadataFor("en");
 
 export default function Page() {
   return <DesignPage />;

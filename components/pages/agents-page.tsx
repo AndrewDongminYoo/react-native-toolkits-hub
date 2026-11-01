@@ -18,7 +18,7 @@ import type { CSSProperties } from "react";
 import { CodeBlock } from "@/components/code-block";
 import { ProductHero } from "@/components/product-hero";
 import { Button } from "@/components/ui/button";
-import type { LocaleProps } from "@/lib/locale";
+import type { Locale, LocaleProps } from "@/lib/locale";
 import { productMetadata } from "@/lib/site";
 import { getToolkit } from "@/lib/toolkits";
 import { translate } from "@/lib/translate";
@@ -108,10 +108,16 @@ const contract = [
 
 const toolkit = getToolkit("rn-agents-kit");
 
-export const metadata = productMetadata(
-  toolkit,
-  "Ten audit-first agent skills for React Native project snapshots, asset hygiene, New Architecture readiness, code review, device capture and QA, Metro console output, CI artifacts, EAS profiles, and upgrade planning."
-);
+export function metadataFor(locale: Locale) {
+  return productMetadata(
+    toolkit,
+    translate(
+      "Ten audit-first agent skills for React Native project snapshots, asset hygiene, New Architecture readiness, code review, device capture and QA, Metro console output, CI artifacts, EAS profiles, and upgrade planning.",
+      locale
+    ),
+    locale
+  );
+}
 
 export default function AgentsKitPage({ locale = "en" }: LocaleProps) {
   return (

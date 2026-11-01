@@ -409,4 +409,12 @@ export const korean: Record<string, string> = {
   "Replace the next brittle asset path before it ships.": "불안정한 경로는 배포 전에.",
   "Install the generator as a development dependency, generate the registry, and let TypeScript carry the asset names from there.":
     "생성기를 개발 의존성으로 설치하고 레지스트리를 만드세요. 이후 에셋 이름은 TypeScript에 맡기면 됩니다.",
+  "Ten audit-first agent skills for React Native project snapshots, asset hygiene, New Architecture readiness, code review, device capture and QA, Metro console output, CI artifacts, EAS profiles, and upgrade planning.":
+    "React Native 프로젝트 스냅샷, 에셋 정리, New Architecture 준비 상태, 코드 리뷰, 기기 캡처와 QA, Metro 콘솔 출력, CI 아티팩트, EAS 프로필, 업그레이드 계획을 다루는 10가지 점검 우선 에이전트 스킬입니다.",
+  "Generate typed TypeScript registries for React Native images, SVGs, and Lottie animations, then audit unused assets and rewrite stale references.":
+    "React Native의 이미지, SVG, Lottie 애니메이션에 대한 TypeScript 타입 레지스트리를 생성하고, 사용하지 않는 에셋을 점검한 뒤 오래된 참조를 갱신합니다.",
+  "A Figma plugin that deterministically converts selected designs into React Native and NativeWind component code.":
+    "선택한 디자인을 React Native와 NativeWind 컴포넌트 코드로 결정론적으로 변환하는 Figma 플러그인입니다.",
+  "A read-only, local-first React Native New Architecture readiness audit for dependencies, settings, and app-local native modules.":
+    "의존성과 설정, 앱 내부 네이티브 모듈을 대상으로 React Native New Architecture 준비 상태를 점검하는 읽기 전용, 로컬 우선 도구입니다.",
 };

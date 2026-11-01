@@ -12,7 +12,7 @@ import type { CSSProperties } from "react";
 
 import { ProductHero } from "@/components/product-hero";
 import { Button } from "@/components/ui/button";
-import type { LocaleProps } from "@/lib/locale";
+import type { Locale, LocaleProps } from "@/lib/locale";
 import { productMetadata } from "@/lib/site";
 import { getToolkit } from "@/lib/toolkits";
 import { translate } from "@/lib/translate";
@@ -82,10 +82,16 @@ const capabilities = [
 
 const toolkit = getToolkit("design-to-nativewind");
 
-export const metadata = productMetadata(
-  toolkit,
-  "A Figma plugin that deterministically converts selected designs into React Native and NativeWind component code."
-);
+export function metadataFor(locale: Locale) {
+  return productMetadata(
+    toolkit,
+    translate(
+      "A Figma plugin that deterministically converts selected designs into React Native and NativeWind component code.",
+      locale
+    ),
+    locale
+  );
+}
 
 export default function DesignToNativeWindPage({ locale = "en" }: LocaleProps) {
   return (
