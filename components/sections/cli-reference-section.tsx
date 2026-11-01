@@ -1,4 +1,6 @@
 import { CodeBlock } from "@/components/code-block";
+import type { LocaleProps } from "@/lib/locale";
+import { translate } from "@/lib/translate";
 
 const commands = [
   {
@@ -74,18 +76,20 @@ const commands = [
   },
 ];
 
-export function CLIReferenceSection() {
+export function CLIReferenceSection({ locale = "en" }: LocaleProps) {
   return (
     <section className="field-grid border-b border-border bg-card/35" id="cli">
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
         <div className="max-w-3xl">
-          <p className="section-kicker">CLI reference / 03</p>
+          <p className="section-kicker">{translate("CLI reference / 03", locale)}</p>
           <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] text-balance sm:text-6xl">
-            Generate, organize, audit.
+            {translate("Generate, organize, audit.", locale)}
           </h2>
           <p className="mt-5 text-base leading-7 text-muted-foreground">
-            Three commands cover the whole surface. Each one lists its options and the default it
-            falls back to when the flag is absent.
+            {translate(
+              "Three commands cover the whole surface. Each one lists its options and the default it falls back to when the flag is absent.",
+              locale
+            )}
           </p>
         </div>
 
@@ -98,11 +102,11 @@ export function CLIReferenceSection() {
                     {command.name}
                   </h3>
                   <p className="mt-4 max-w-md text-sm leading-6 text-muted-foreground">
-                    {command.description}
+                    {translate(command.description, locale)}
                   </p>
                   {command.note && (
                     <p className="mt-4 border-l-2 border-[var(--tool-accent)] pl-3 font-mono text-[0.7rem] leading-5 text-muted-foreground">
-                      {command.note}
+                      {translate(command.note, locale)}
                     </p>
                   )}
                 </div>
@@ -112,11 +116,15 @@ export function CLIReferenceSection() {
                     <table className="w-full min-w-120 border-collapse text-left">
                       <thead>
                         <tr className="font-mono text-[0.62rem] tracking-[0.13em] text-muted-foreground uppercase">
-                          <th className="border-b border-border py-3 pr-5 font-normal">Flag</th>
                           <th className="border-b border-border py-3 pr-5 font-normal">
-                            Description
+                            {translate("Flag", locale)}
                           </th>
-                          <th className="border-b border-border py-3 font-normal">Default</th>
+                          <th className="border-b border-border py-3 pr-5 font-normal">
+                            {translate("Description", locale)}
+                          </th>
+                          <th className="border-b border-border py-3 font-normal">
+                            {translate("Default", locale)}
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -126,10 +134,10 @@ export function CLIReferenceSection() {
                               {flag.flag}
                             </td>
                             <td className="border-b border-border py-3 pr-5 text-muted-foreground">
-                              {flag.description}
+                              {translate(flag.description, locale)}
                             </td>
                             <td className="border-b border-border py-3 font-mono text-xs text-muted-foreground">
-                              {flag.default}
+                              {translate(flag.default, locale)}
                             </td>
                           </tr>
                         ))}
@@ -139,9 +147,9 @@ export function CLIReferenceSection() {
 
                   <div className="mt-7">
                     <p className="mb-3 font-mono text-[0.62rem] tracking-[0.14em] text-muted-foreground uppercase">
-                      Examples
+                      {translate("Examples", locale)}
                     </p>
-                    <CodeBlock code={command.examples.join("\n")} language="bash" />
+                    <CodeBlock code={command.examples.join("\n")} language="bash" locale={locale} />
                   </div>
                 </div>
               </div>

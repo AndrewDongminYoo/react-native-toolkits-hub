@@ -8,6 +8,7 @@ import { HeroSection } from "@/components/sections/hero-section";
 import { HowItWorksSection } from "@/components/sections/how-it-works-section";
 import { InstallationSection } from "@/components/sections/installation-section";
 import { TypedAssetsCtaSection } from "@/components/sections/typed-assets-cta-section";
+import type { LocaleProps } from "@/lib/locale";
 import { productMetadata } from "@/lib/site";
 import { getToolkit } from "@/lib/toolkits";
 
@@ -18,22 +19,22 @@ export const metadata = productMetadata(
   "Generate typed TypeScript registries for React Native images, SVGs, and Lottie animations, then audit unused assets and rewrite stale references."
 );
 
-export default function TypedAssetsPage() {
+export default function TypedAssetsPage({ locale = "en" }: LocaleProps) {
   return (
     <main
       className="tool-accent-scope"
       style={{ "--tool-accent": toolkit.accent } as CSSProperties}
     >
-      <HeroSection />
+      <HeroSection locale={locale} />
       <div className="scroll-mt-20" id="start">
-        <FeaturesSection />
+        <FeaturesSection locale={locale} />
       </div>
-      <HowItWorksSection />
-      <InstallationSection />
-      <CLIReferenceSection />
-      <ConfigurationSection />
-      <CISection />
-      <TypedAssetsCtaSection />
+      <HowItWorksSection locale={locale} />
+      <InstallationSection locale={locale} />
+      <CLIReferenceSection locale={locale} />
+      <ConfigurationSection locale={locale} />
+      <CISection locale={locale} />
+      <TypedAssetsCtaSection locale={locale} />
     </main>
   );
 }

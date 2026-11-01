@@ -1,4 +1,6 @@
 import { CodeBlock } from "@/components/code-block";
+import type { LocaleProps } from "@/lib/locale";
+import { translate } from "@/lib/translate";
 
 const generatedOutputCode = `// src/generated/assets.gen.ts
 import type { ImageRequireSource } from 'react-native';
@@ -69,22 +71,24 @@ const normalizationTable = [
   ["point.png alongside point/ dir", "pointAsset (collision)"],
 ];
 
-export function HowItWorksSection() {
+export function HowItWorksSection({ locale = "en" }: LocaleProps) {
   return (
     <section className="field-grid border-b border-border bg-card/35" id="how-it-works">
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
         <div className="max-w-3xl">
-          <p className="section-kicker">Generation pipeline / 04</p>
+          <p className="section-kicker">{translate("Generation pipeline / 04", locale)}</p>
           <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] text-balance sm:text-6xl">
-            Scan, normalize, build, emit.
+            {translate("Scan, normalize, build, emit.", locale)}
           </h2>
           <p className="mt-5 text-base leading-7 text-muted-foreground">
-            The same asset directory produces the same registry on every run, which is what makes
-            the output reviewable in a diff.
+            {translate(
+              "The same asset directory produces the same registry on every run, which is what makes the output reviewable in a diff.",
+              locale
+            )}
           </p>
         </div>
 
-        <div className="mt-14 grid gap-10 lg:grid-cols-[1.15fr_0.85fr]">
+        <div className="mt-14 grid grid-cols-1 gap-10 lg:grid-cols-[1.15fr_0.85fr]">
           <ol className="border-t border-border">
             {stages.map((stage) => (
               <li
@@ -96,10 +100,10 @@ export function HowItWorksSection() {
                 </span>
                 <div>
                   <h3 className="font-display text-2xl font-semibold tracking-[-0.035em]">
-                    {stage.title}
+                    {translate(stage.title, locale)}
                   </h3>
                   <p className="mt-2 max-w-lg text-sm leading-6 text-muted-foreground">
-                    {stage.description}
+                    {translate(stage.description, locale)}
                   </p>
                 </div>
               </li>
@@ -108,37 +112,43 @@ export function HowItWorksSection() {
 
           <div className="min-w-0">
             <p className="mb-3 font-mono text-[0.62rem] tracking-[0.14em] text-muted-foreground uppercase">
-              Example asset tree
+              {translate("Example asset tree", locale)}
             </p>
-            <CodeBlock code={assetTreeCode} language="bash" />
+            <CodeBlock code={assetTreeCode} language="bash" locale={locale} />
           </div>
         </div>
 
-        <div className="mt-16 grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+        <div className="mt-16 grid grid-cols-1 gap-10 lg:grid-cols-[0.85fr_1.15fr]">
           <div>
             <h3 className="font-display text-3xl font-semibold tracking-[-0.04em]">
-              Key normalization rules
+              {translate("Key normalization rules", locale)}
             </h3>
             <p className="mt-4 max-w-md text-sm leading-6 text-muted-foreground">
-              Filenames become identifiers through fixed rules rather than per-project conventions,
-              so two developers regenerating the same tree get the same keys.
+              {translate(
+                "Filenames become identifiers through fixed rules rather than per-project conventions, so two developers regenerating the same tree get the same keys.",
+                locale
+              )}
             </p>
             <div className="mt-8 overflow-x-auto border-t border-border">
               <table className="w-full min-w-100 border-collapse text-left">
                 <thead>
                   <tr className="font-mono text-[0.62rem] tracking-[0.13em] text-muted-foreground uppercase">
-                    <th className="border-b border-border py-3 pr-5 font-normal">Filename</th>
-                    <th className="border-b border-border py-3 font-normal">Generated key</th>
+                    <th className="border-b border-border py-3 pr-5 font-normal">
+                      {translate("Filename", locale)}
+                    </th>
+                    <th className="border-b border-border py-3 font-normal">
+                      {translate("Generated key", locale)}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {normalizationTable.map(([filename, key]) => (
                     <tr className="text-sm" key={filename}>
                       <td className="border-b border-border py-3 pr-5 font-mono text-muted-foreground">
-                        {filename}
+                        {translate(filename, locale)}
                       </td>
                       <td className="border-b border-border py-3 font-mono text-[var(--tool-accent-ink)]">
-                        {key}
+                        {translate(key, locale)}
                       </td>
                     </tr>
                   ))}
@@ -149,17 +159,20 @@ export function HowItWorksSection() {
 
           <div className="min-w-0">
             <h3 className="font-display text-3xl font-semibold tracking-[-0.04em]">
-              Generated output
+              {translate("Generated output", locale)}
             </h3>
             <p className="mt-4 max-w-md text-sm leading-6 text-muted-foreground">
-              Keys are sorted, types are imported per asset type, and the whole object is const so
-              TypeScript narrows every reference.
+              {translate(
+                "Keys are sorted, types are imported per asset type, and the whole object is const so TypeScript narrows every reference.",
+                locale
+              )}
             </p>
             <div className="mt-8">
               <CodeBlock
                 code={generatedOutputCode}
                 filename="assets.gen.ts"
                 language="typescript"
+                locale={locale}
                 showLineNumbers
               />
             </div>

@@ -1,6 +1,8 @@
 import { CheckCircle2 } from "lucide-react";
 
 import { CodeBlock } from "@/components/code-block";
+import type { LocaleProps } from "@/lib/locale";
+import { translate } from "@/lib/translate";
 
 const installCommand = `npm install --save-dev rn-typed-assets`;
 
@@ -79,30 +81,34 @@ const outcomes = [
   "Unused assets surface in the audit and are removable from it.",
 ];
 
-export function InstallationSection() {
+export function InstallationSection({ locale = "en" }: LocaleProps) {
   return (
     <section className="border-b border-border" id="installation">
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
         <div className="max-w-3xl">
-          <p className="section-kicker">Quick start / 05</p>
+          <p className="section-kicker">{translate("Quick start / 05", locale)}</p>
           <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] text-balance sm:text-6xl">
-            Five steps to a typed registry.
+            {translate("Five steps to a typed registry.", locale)}
           </h2>
           <p className="mt-5 text-base leading-7 text-muted-foreground">
-            Install as a dev dependency, run the generator, then replace require() paths with named
-            constants.
+            {translate(
+              "Install as a dev dependency, run the generator, then replace require() paths with named constants.",
+              locale
+            )}
           </p>
         </div>
 
         <div className="mt-12 border border-[var(--tool-accent)]/45 bg-[color-mix(in_oklch,var(--tool-accent)_7%,var(--card))] p-6 sm:p-8">
           <p className="font-mono text-[0.62rem] tracking-[0.14em] text-[var(--tool-accent-ink)] uppercase">
-            What the registry changes
+            {translate("What the registry changes", locale)}
           </p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {outcomes.map((outcome) => (
               <div className="flex items-start gap-3" key={outcome}>
                 <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-[var(--tool-accent)]" />
-                <span className="text-sm leading-6 text-muted-foreground">{outcome}</span>
+                <span className="text-sm leading-6 text-muted-foreground">
+                  {translate(outcome, locale)}
+                </span>
               </div>
             ))}
           </div>
@@ -116,15 +122,22 @@ export function InstallationSection() {
             >
               <div className="lg:sticky lg:top-24">
                 <span className="font-mono text-xs tracking-[0.2em] text-[var(--tool-accent-ink)]">
-                  STEP / {step.number}
+                  {translate("STEP /", locale)} {step.number}
                 </span>
                 <h3 className="mt-4 font-display text-2xl font-semibold tracking-[-0.035em]">
-                  {step.title}
+                  {translate(step.title, locale)}
                 </h3>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">{step.description}</p>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                  {translate(step.description, locale)}
+                </p>
               </div>
               <div className="min-w-0">
-                <CodeBlock code={step.code} filename={step.filename} language={step.language} />
+                <CodeBlock
+                  code={step.code}
+                  filename={step.filename}
+                  language={step.language}
+                  locale={locale}
+                />
               </div>
             </li>
           ))}

@@ -2,6 +2,8 @@
 
 import { useEffect } from "react";
 
+import { localePath, type LocaleProps } from "@/lib/locale";
+
 const typedAssetsHashes = new Set([
   "#start",
   "#ci",
@@ -12,11 +14,11 @@ const typedAssetsHashes = new Set([
   "#installation",
 ]);
 
-export function LegacyHashRedirect() {
+export function LegacyHashRedirect({ locale = "en" }: LocaleProps) {
   useEffect(() => {
     function redirectTypedAssetsHash() {
       if (typedAssetsHashes.has(window.location.hash)) {
-        window.location.replace(`/rn-typed-assets${window.location.hash}`);
+        window.location.replace(`${localePath("/rn-typed-assets", locale)}${window.location.hash}`);
       }
     }
 
@@ -24,7 +26,7 @@ export function LegacyHashRedirect() {
     window.addEventListener("hashchange", redirectTypedAssetsHash);
 
     return () => window.removeEventListener("hashchange", redirectTypedAssetsHash);
-  }, []);
+  }, [locale]);
 
   return null;
 }

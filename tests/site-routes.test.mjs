@@ -77,8 +77,62 @@ for (const route of routes) {
   });
 }
 
+for (const route of routes) {
+  const koreanPath = `/ko${route.path === "/" ? "" : route.path}`;
+  test(`${koreanPath} renders Korean content and localized navigation`, async () => {
+    const response = await fetch(new URL(koreanPath, baseUrl), { redirect: "manual" });
+    const html = await response.text();
+    assert.equal(response.status, 200);
+    assert.match(html, /<html[^>]*lang="ko"/);
+    assert.ok(html.includes(route.marker));
+    assert.ok(html.includes("도구 탐색"));
+    assert.ok(html.includes("Switch to English"));
+    for (const product of routes.filter((item) => item.path !== "/")) {
+      assert.ok(html.includes(`href="/ko${product.path}"`));
+    }
+    assert.ok(html.includes(`href="${route.path}"`), "Language switch retains the page");
+    assert.match(html, /hrefLang="en"|hreflang="en"/);
+    assert.match(html, /hrefLang="ko"|hreflang="ko"/);
+    assert.match(html, new RegExp(`<link rel="canonical" href="[^"]*${koreanPath}"`));
+    const marker = {
+      "/": "추측은 줄이고.",
+      "/rn-agents-kit": "하나의 스킬, 하나의 역할.",
+      "/rn-typed-assets": "생성, 정리, 점검.",
+      "/rn-newarch-ready": "모른다는 것도 정직한 결과.",
+      "/design-to-nativewind": "선택한 디자인이 컴포넌트로.",
+    }[route.path];
+    assert.ok(html.includes(marker), `Missing Korean content: ${marker}`);
+    if (route.path === "/") {
+      assert.ok(html.includes("모듈 보기"), "Product cards must use the active locale");
+    }
+    if (route.path === "/rn-typed-assets") {
+      for (const anchor of typedAssetsAnchors) assert.ok(html.includes(`id="${anchor}"`));
+      assert.ok(html.includes("npm install --save-dev rn-typed-assets"));
+    }
+    for (const destination of route.destinations.filter((path) => path.startsWith("https:"))) {
+      assert.ok(html.includes(`href="${destination}"`), "Public destinations remain unchanged");
+    }
+  });
+}
+
+test("English pages keep their language and offer Korean equivalents", async () => {
+  for (const route of routes) {
+    const html = await (await fetch(new URL(route.path, baseUrl))).text();
+    assert.match(html, /<html[^>]*lang="en"/);
+    assert.ok(html.includes(`href="/ko${route.path === "/" ? "" : route.path}"`));
+  }
+});
+
+test("unknown Korean products return 404", async () => {
+  const response = await fetch(new URL("/ko/not-a-toolkit", baseUrl));
+  assert.equal(response.status, 404);
+});
+
 const assets = [
-  { path: "/sitemap.xml", markers: ["/rn-agents-kit</loc>"] },
+  {
+    path: "/sitemap.xml",
+    markers: ["/rn-agents-kit</loc>", "/ko</loc>", "/ko/rn-typed-assets</loc>", 'hreflang="ko"'],
+  },
   { path: "/robots.txt", markers: ["Sitemap:"] },
   {
     path: "/llms.txt",

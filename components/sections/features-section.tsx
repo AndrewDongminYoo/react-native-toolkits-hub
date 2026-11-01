@@ -11,6 +11,9 @@ import {
   Zap,
 } from "lucide-react";
 
+import type { LocaleProps } from "@/lib/locale";
+import { translate } from "@/lib/translate";
+
 const features = [
   {
     description:
@@ -74,17 +77,20 @@ const features = [
   },
 ];
 
-export function FeaturesSection() {
+export function FeaturesSection({ locale = "en" }: LocaleProps) {
   return (
     <section className="border-b border-border" id="features">
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
         <div className="max-w-3xl">
-          <p className="section-kicker">Feature surface / 10</p>
+          <p className="section-kicker">{translate("Feature surface / 10", locale)}</p>
           <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] text-balance sm:text-6xl">
-            What the generator actually ships.
+            {translate("What the generator actually ships.", locale)}
           </h2>
           <p className="mt-5 text-base leading-7 text-muted-foreground">
-            Each entry below maps to a command, a flag, or a file the CLI writes.
+            {translate(
+              "Each entry below maps to a command, a flag, or a file the CLI writes.",
+              locale
+            )}
           </p>
         </div>
 
@@ -98,10 +104,10 @@ export function FeaturesSection() {
                 </span>
               </div>
               <h3 className="mt-12 font-display text-3xl font-semibold tracking-[-0.04em]">
-                {feature.title}
+                {translate(feature.title, locale)}
               </h3>
               <p className="mt-4 max-w-lg text-sm leading-6 text-muted-foreground">
-                {feature.description}
+                {translate(feature.description, locale)}
               </p>
             </article>
           ))}

@@ -5,8 +5,10 @@ import type { CSSProperties } from "react";
 import { CodeBlock } from "@/components/code-block";
 import { ProductHero } from "@/components/product-hero";
 import { Button } from "@/components/ui/button";
+import { localePath, type LocaleProps } from "@/lib/locale";
 import { productMetadata } from "@/lib/site";
 import { getToolkit } from "@/lib/toolkits";
+import { translate } from "@/lib/translate";
 
 const installCode = `npm install --save-dev rn-newarch-ready`;
 
@@ -57,15 +59,22 @@ export const metadata = productMetadata(
   "A read-only, local-first React Native New Architecture readiness audit for dependencies, settings, and app-local native modules."
 );
 
-export default function NewArchitectureReadyPage() {
+export default function NewArchitectureReadyPage({ locale = "en" }: LocaleProps) {
   return (
     <main
       className="tool-accent-scope"
       style={{ "--tool-accent": toolkit.accent } as CSSProperties}
     >
       <ProductHero
-        description="The CLI reads local configuration and installed packages first, enriches uncertain dependencies with public directory data when online, and states what still requires human verification."
-        intro="Audit New Architecture readiness without pretending an absent signal is proof of incompatibility."
+        description={translate(
+          "The CLI reads local configuration and installed packages first, enriches uncertain dependencies with public directory data when online, and states what still requires human verification.",
+          locale
+        )}
+        intro={translate(
+          "Audit New Architecture readiness without pretending an absent signal is proof of incompatibility.",
+          locale
+        )}
+        locale={locale}
         toolkit={toolkit}
       >
         <div className="space-y-3 font-mono text-xs">
@@ -79,8 +88,8 @@ export default function NewArchitectureReadyPage() {
               className="flex items-center justify-between border-b border-border pb-3 last:border-0 last:pb-0"
               key={signal}
             >
-              <span>{signal}</span>
-              <span className="text-[var(--tool-accent-ink)]">{value}</span>
+              <span>{translate(signal, locale)}</span>
+              <span className="text-[var(--tool-accent-ink)]">{translate(value, locale)}</span>
             </div>
           ))}
         </div>
@@ -89,18 +98,20 @@ export default function NewArchitectureReadyPage() {
       <section className="border-b border-border" id="start">
         <div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.72fr_1.28fr] lg:px-12 lg:py-28">
           <div>
-            <p className="section-kicker">Install / npm</p>
+            <p className="section-kicker">{translate("Install / npm", locale)}</p>
             <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] sm:text-6xl">
-              Point it at the real project.
+              {translate("Point it at the real project.", locale)}
             </h2>
             <p className="mt-5 max-w-lg text-base leading-7 text-muted-foreground">
-              Run the human-readable audit in the current project, target another path, request JSON
-              for automation, or stay fully local with offline mode.
+              {translate(
+                "Run the human-readable audit in the current project, target another path, request JSON for automation, or stay fully local with offline mode.",
+                locale
+              )}
             </p>
           </div>
           <div className="grid min-w-0 gap-5">
-            <CodeBlock code={installCode} language="bash" />
-            <CodeBlock code={usageCode} language="bash" />
+            <CodeBlock code={installCode} language="bash" locale={locale} />
+            <CodeBlock code={usageCode} language="bash" locale={locale} />
           </div>
         </div>
       </section>
@@ -108,9 +119,9 @@ export default function NewArchitectureReadyPage() {
       <section className="field-grid border-b border-border bg-card/35">
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
           <div className="max-w-3xl">
-            <p className="section-kicker">Audit surface / v1</p>
+            <p className="section-kicker">{translate("Audit surface / v1", locale)}</p>
             <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] sm:text-6xl">
-              Four evidence channels, one conservative report.
+              {translate("Four evidence channels, one conservative report.", locale)}
             </h2>
           </div>
           <div className="mt-14 grid gap-px bg-border md:grid-cols-2">
@@ -123,10 +134,10 @@ export default function NewArchitectureReadyPage() {
                   </span>
                 </div>
                 <h3 className="mt-12 font-display text-3xl font-semibold tracking-[-0.04em]">
-                  {check.title}
+                  {translate(check.title, locale)}
                 </h3>
                 <p className="mt-4 max-w-lg text-sm leading-6 text-muted-foreground">
-                  {check.description}
+                  {translate(check.description, locale)}
                 </p>
               </article>
             ))}
@@ -137,15 +148,17 @@ export default function NewArchitectureReadyPage() {
       <section className="border-b border-border">
         <div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.68fr_1.32fr] lg:px-12 lg:py-28">
           <div>
-            <p className="section-kicker">Signal vocabulary</p>
+            <p className="section-kicker">{translate("Signal vocabulary", locale)}</p>
             <h2 className="mt-6 font-display text-4xl leading-[0.96] font-semibold tracking-[-0.05em] sm:text-5xl">
-              Unknown is an honest result.
+              {translate("Unknown is an honest result.", locale)}
             </h2>
             <div className="mt-7 flex items-start gap-3 border-l-2 border-[var(--tool-accent)] pl-4">
               <ShieldAlert className="mt-0.5 size-5 shrink-0 text-[var(--tool-accent)]" />
               <p className="text-sm leading-6 text-muted-foreground">
-                The v0.x report shape may change. Migration and project mutation remain outside this
-                CLI&apos;s scope.
+                {translate(
+                  "The v0.x report shape may change. Migration and project mutation remain outside this CLI's scope.",
+                  locale
+                )}
               </p>
             </div>
           </div>
@@ -153,9 +166,15 @@ export default function NewArchitectureReadyPage() {
             <table className="w-full min-w-160 border-collapse text-left">
               <thead>
                 <tr className="font-mono text-[0.65rem] tracking-[0.13em] text-muted-foreground uppercase">
-                  <th className="border-b border-border py-4 pr-5 font-normal">Status</th>
-                  <th className="border-b border-border py-4 pr-5 font-normal">Evidence</th>
-                  <th className="border-b border-border py-4 font-normal">Operator action</th>
+                  <th className="border-b border-border py-4 pr-5 font-normal">
+                    {translate("Status", locale)}
+                  </th>
+                  <th className="border-b border-border py-4 pr-5 font-normal">
+                    {translate("Evidence", locale)}
+                  </th>
+                  <th className="border-b border-border py-4 font-normal">
+                    {translate("Operator action", locale)}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -164,8 +183,12 @@ export default function NewArchitectureReadyPage() {
                     <td className="border-b border-border py-5 pr-5 font-mono text-[var(--tool-accent-ink)]">
                       {status}
                     </td>
-                    <td className="border-b border-border py-5 pr-5 text-foreground">{evidence}</td>
-                    <td className="border-b border-border py-5 text-muted-foreground">{action}</td>
+                    <td className="border-b border-border py-5 pr-5 text-foreground">
+                      {translate(evidence, locale)}
+                    </td>
+                    <td className="border-b border-border py-5 text-muted-foreground">
+                      {translate(action, locale)}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -178,19 +201,22 @@ export default function NewArchitectureReadyPage() {
         <div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_auto] lg:items-end lg:px-12 lg:py-24">
           <div>
             <p className="font-mono text-[0.68rem] tracking-[0.18em] text-[var(--tool-accent-inverse-ink)] uppercase">
-              Deterministic layer → judgment layer
+              {translate("Deterministic layer → judgment layer", locale)}
             </p>
             <h2 className="mt-5 max-w-4xl font-display text-5xl leading-[0.92] font-semibold tracking-[-0.055em] text-balance sm:text-7xl">
-              Need interpretation around the report?
+              {translate("Need interpretation around the report?", locale)}
             </h2>
             <p className="mt-6 max-w-2xl text-base leading-7 text-background/65">
-              The public rn-newarch-audit skill wraps this CLI with an audit-first agent workflow.
+              {translate(
+                "The public rn-newarch-audit skill wraps this CLI with an audit-first agent workflow.",
+                locale
+              )}
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
             <Button asChild className="h-12 rounded-none px-6">
-              <Link href="/rn-agents-kit">
-                Open RN Agents Kit
+              <Link href={localePath("/rn-agents-kit", locale)}>
+                {translate("Open RN Agents Kit", locale)}
                 <ArrowRight className="size-4" />
               </Link>
             </Button>
@@ -201,7 +227,7 @@ export default function NewArchitectureReadyPage() {
             >
               <a href={toolkit.githubUrl} rel="noopener noreferrer" target="_blank">
                 <Github className="size-4" />
-                Review the CLI
+                {translate("Review the CLI", locale)}
               </a>
             </Button>
           </div>

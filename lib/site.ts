@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
 
+import { type Locale, localePath } from "@/lib/locale";
 import type { Toolkit } from "@/lib/toolkits";
+
+export function languageAlternates(path: string, locale: Locale): Metadata["alternates"] {
+  return {
+    canonical: localePath(path, locale),
+    languages: { "en": path, "ko": localePath(path, "ko"), "x-default": path },
+  };
+}
 
 const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/+$/, "");
 
@@ -19,15 +27,23 @@ export const siteDescription =
  * Page metadata for a product route. Without an own `openGraph` block a page inherits the root
  * one wholesale, so shared product links preview as the site root.
  */
-export function productMetadata(toolkit: Toolkit, description: string): Metadata {
+export function productMetadata(
+  toolkit: Toolkit,
+  description: string,
+  locale: Locale = "en"
+): Metadata {
   return {
+    alternates: languageAlternates(toolkit.route, locale),
     description,
     openGraph: {
       description,
       siteName,
       title: toolkit.name,
       type: "website",
-      url: toolkit.route,
+      url: localePath(toolkit.route, locale),
+      locale: locale === "ko" ? "ko_KR" : "en_US",
+      alternateLocale: locale === "ko" ? "en_US" : "ko_KR",
+      images: [{ url: `${toolkit.route}/opengraph-image`, width: 1200, height: 630 }],
     },
     title: toolkit.name,
   };

@@ -2,7 +2,9 @@ import { ArrowUpRight, Bot, Boxes, ScanSearch, WandSparkles } from "lucide-react
 import Link from "next/link";
 import type { CSSProperties } from "react";
 
+import { localePath, type LocaleProps } from "@/lib/locale";
 import type { Toolkit } from "@/lib/toolkits";
+import { translate } from "@/lib/translate";
 import { cn } from "@/lib/utils";
 
 const icons = {
@@ -15,7 +17,8 @@ const icons = {
 export function ToolkitCard({
   featured = false,
   toolkit,
-}: {
+  locale = "en",
+}: LocaleProps & {
   featured?: boolean;
   toolkit: Toolkit;
 }) {
@@ -30,13 +33,13 @@ export function ToolkitCard({
           ? "border-[var(--tool-accent)]/55 bg-[color-mix(in_oklch,var(--tool-accent)_8%,var(--card))] lg:p-10"
           : "min-h-80 border-border bg-card/80"
       )}
-      href={toolkit.route}
+      href={localePath(toolkit.route, locale)}
       style={accentStyle}
     >
       <div className="absolute top-0 right-0 h-24 w-24 border-b border-l border-border/70 bg-[linear-gradient(135deg,transparent_49%,var(--border)_50%,transparent_51%)] opacity-70 transition-colors group-hover:border-[var(--tool-accent)]" />
       <div className={cn("flex items-start justify-between", featured ? "mb-8" : "mb-12")}>
         <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground">
-          MODULE / {toolkit.index}
+          {translate("MODULE /", locale)} {toolkit.index}
         </span>
         <Icon
           className={cn("text-[var(--tool-accent)]", featured ? "size-7" : "size-5")}
@@ -46,7 +49,7 @@ export function ToolkitCard({
 
       <div className={featured ? undefined : "mt-auto"}>
         <p className="mb-3 font-mono text-xs tracking-[0.16em] text-[var(--tool-accent-ink)] uppercase">
-          {toolkit.eyebrow}
+          {translate(toolkit.eyebrow, locale)}
         </p>
         <h3
           className={cn(
@@ -62,14 +65,14 @@ export function ToolkitCard({
             featured ? "max-w-2xl text-base leading-7" : "max-w-lg text-sm"
           )}
         >
-          {toolkit.description}
+          {translate(toolkit.description, locale)}
         </p>
         <div className="mt-8 flex items-center justify-between border-t border-border pt-4">
           <span className="font-mono text-[0.68rem] tracking-[0.12em] text-muted-foreground uppercase">
-            {toolkit.status}
+            {translate(toolkit.status, locale)}
           </span>
           <span className="flex items-center gap-2 text-sm font-semibold text-foreground">
-            Open module
+            {translate("Open module", locale)}
             <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </span>
         </div>
