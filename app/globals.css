@@ -145,20 +145,6 @@
     overflow-wrap: anywhere;
   }
 
-  html[lang="ko"] body {
-    font-family:
-      var(--font-instrument), var(--font-korean), "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  }
-
-  html[lang="ko"] :is(h1, h2, h3) {
-    line-height: 1.2;
-    letter-spacing: -0.035em;
-  }
-
-  html[lang="ko"] .section-kicker {
-    letter-spacing: 0.08em;
-  }
-
   ::selection {
     background: color-mix(in oklch, var(--primary) 35%, transparent);
     color: var(--foreground);
@@ -284,6 +270,25 @@
   .reveal-delay-3 {
     animation-delay: 280ms;
   }
+}
+
+/*
+ * Korean overrides stay unlayered: they must beat the component layer (.section-kicker) and the
+ * utility classes on headings and body (leading-*, tracking-*, font-sans), which a rule inside
+ * @layer base cannot do.
+ */
+html[lang="ko"] body {
+  font-family:
+    var(--font-instrument), var(--font-korean), "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+
+html[lang="ko"] :is(h1, h2, h3) {
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+
+html[lang="ko"] .section-kicker {
+  letter-spacing: 0.08em;
 }
 
 @keyframes reveal-up {
