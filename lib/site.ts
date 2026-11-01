@@ -22,7 +22,12 @@ export const siteDescription =
 export function productMetadata(toolkit: Toolkit, description: string): Metadata {
   return {
     description,
+    alternates: {
+      canonical: toolkit.route,
+      languages: { en: toolkit.route, ko: `/ko${toolkit.route}` },
+    },
     openGraph: {
+      images: [`${toolkit.route}/opengraph-image`],
       description,
       siteName,
       title: toolkit.name,

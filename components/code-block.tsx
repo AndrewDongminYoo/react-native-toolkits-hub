@@ -20,6 +20,7 @@ interface CodeBlockProps {
   filename?: string;
   className?: string;
   showLineNumbers?: boolean;
+  locale?: "en" | "ko";
 }
 
 export function CodeBlock({
@@ -28,12 +29,15 @@ export function CodeBlock({
   filename,
   className,
   showLineNumbers = false,
+  locale = "en",
 }: CodeBlockProps) {
   const { siteTheme, codeThemeId } = useSiteTheme();
   const isDark = siteTheme === "dark";
   const shikiTheme = resolveCodeTheme(codeThemeId, isDark);
 
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
+  const copyLabel = locale === "ko" ? "코드 복사" : "Copy code";
   const [highlightedResult, setHighlightedResult] = useState<{
     code: string;
     html: string;
@@ -68,9 +72,14 @@ export function CodeBlock({
   }, [code, resolvedLanguage, shikiTheme]);
 
   const copyToClipboard = async () => {
-    await navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setCopyError(false);
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopyError(true);
+    }
   };
 
   const lines = code.split("\n");
@@ -93,7 +102,7 @@ export function CodeBlock({
             </span>
           </div>
           <button
-            aria-label="Copy code"
+            aria-label={copyLabel}
             className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             onClick={copyToClipboard}
           >
@@ -102,12 +111,26 @@ export function CodeBlock({
         </div>
       )}
 
+      <p
+        aria-live="polite"
+        className={copyError ? "px-4 py-2 text-sm text-destructive-ink" : "sr-only"}
+      >
+        {copyError
+          ? locale === "ko"
+            ? "복사하지 못했어요. 코드를 직접 선택해서 복사해 주세요."
+            : "Could not copy. Please select the code and copy it manually."
+          : copied
+            ? locale === "ko"
+              ? "코드를 복사했어요."
+              : "Copied to clipboard."
+            : ""}
+      </p>
       {/* Code content */}
       <div className="group relative">
         {/* Floating copy button when no header */}
         {!filename && !language && (
           <button
-            aria-label="Copy code"
+            aria-label={copyLabel}
             className="absolute top-3 right-3 z-10 rounded-md bg-muted/80 p-1.5 text-muted-foreground opacity-0 transition-all group-hover:opacity-100 hover:bg-muted hover:text-foreground"
             onClick={copyToClipboard}
           >

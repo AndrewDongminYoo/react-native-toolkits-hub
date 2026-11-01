@@ -28,8 +28,7 @@ const usageCode = `import { Assets, Lotties, Svgs } from './generated/assets.gen
 // SVGs (with react-native-svg)
 <SvgUri source={Svgs.logo} />`;
 
-const auditCommands = `npm run assets:audit          # report unused entries
-npm run assets:audit -- --fix # delete unused files and regenerate`;
+const auditCommands = `npm run assets:audit # report unused entries without deleting files`;
 
 const steps = [
   {
@@ -65,7 +64,8 @@ const steps = [
   },
   {
     code: auditCommands,
-    description: "Run the audit to list unreferenced assets, then delete them in the same command.",
+    description:
+      "Start with a read-only report. Review the listed files and your Git status first. The optional --fix flag deletes unused files and regenerates the registry, so only use it after checking the results.",
     language: "bash",
     number: "05",
     title: "Audit for unused assets",

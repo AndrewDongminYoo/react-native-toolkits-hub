@@ -77,8 +77,41 @@ for (const route of routes) {
   });
 }
 
+for (const route of routes) {
+  const path = `/ko${route.path === "/" ? "" : route.path}`;
+  test(`${path} renders a Korean guide with language alternatives`, async () => {
+    const response = await fetch(new URL(path, baseUrl));
+    const html = await response.text();
+    assert.equal(response.status, 200);
+    assert.match(html, /<html[^>]*lang="ko"/);
+    assert.ok(html.includes('hrefLang="en"') || html.includes('hreflang="en"'));
+    assert.ok(html.includes('hrefLang="ko"') || html.includes('hreflang="ko"'));
+    assert.ok(html.includes(`href="${route.path}"`));
+    assert.ok(
+      html.includes(route.path === "/" ? "어떤 일부터 도와드릴까요?" : "하나씩 따라 해봐요")
+    );
+    if (route.path !== "/") {
+      assert.ok(html.includes('id="installation"'));
+      assert.ok(html.includes("시작 전에 준비해 주세요"));
+      for (const destination of route.destinations) {
+        assert.ok(html.includes(`href="${destination}"`));
+      }
+    }
+  });
+}
+
+test("unsupported locales and unknown guides return 404", async () => {
+  for (const path of ["/fr", "/fr/rn-agents-kit", "/ko/not-a-toolkit"]) {
+    const response = await fetch(new URL(path, baseUrl));
+    assert.equal(response.status, 404, path);
+  }
+});
+
 const assets = [
-  { path: "/sitemap.xml", markers: ["/rn-agents-kit</loc>"] },
+  {
+    path: "/sitemap.xml",
+    markers: ["/rn-agents-kit</loc>", "/ko</loc>", "/ko/rn-typed-assets</loc>", 'hreflang="ko"'],
+  },
   { path: "/robots.txt", markers: ["Sitemap:"] },
   {
     path: "/llms.txt",

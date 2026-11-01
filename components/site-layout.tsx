@@ -1,8 +1,8 @@
-import "./globals.css";
+import "@/app/globals.css";
 
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Instrument_Sans, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, JetBrains_Mono, Noto_Sans_KR } from "next/font/google";
 import type { ReactNode } from "react";
 
 import { Header } from "@/components/header";
@@ -15,7 +15,7 @@ const display = Bricolage_Grotesque({
   variable: "--font-bricolage",
 });
 
-const sans = Instrument_Sans({
+const sans = Noto_Sans_KR({
   subsets: ["latin"],
   variable: "--font-instrument",
 });
@@ -45,6 +45,7 @@ export const metadata: Metadata = {
     "nativewind",
   ],
   openGraph: {
+    images: ["/opengraph-image"],
     description: "Agent workflows and deterministic tools for maintaining React Native projects.",
     siteName,
     title: siteName,
@@ -52,12 +53,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+export function SiteLayout({
+  children,
+  locale,
+}: Readonly<{ children: ReactNode; locale: "en" | "ko" }>) {
   return (
     <html
       className={`${display.variable} ${sans.variable} ${mono.variable} bg-background`}
       data-scroll-behavior="smooth"
-      lang="en"
+      lang={locale}
       suppressHydrationWarning
     >
       <body className="min-h-screen font-sans antialiased" suppressHydrationWarning>
@@ -65,7 +69,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
           <div className="flex min-h-screen flex-col">
             <Header />
             <div className="flex-1">{children}</div>
-            <SiteFooter />
+            <SiteFooter locale={locale} />
           </div>
           {process.env.NODE_ENV === "production" && <Analytics />}
         </ThemeProvider>

@@ -4,12 +4,12 @@ import { siteUrl } from "@/lib/site";
 import { toolkits } from "@/lib/toolkits";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    { changeFrequency: "monthly", priority: 1, url: siteUrl },
-    ...toolkits.map((toolkit) => ({
+  return ["", ...toolkits.map((toolkit) => toolkit.route)].flatMap((path) =>
+    ["", "/ko"].map((prefix) => ({
       changeFrequency: "monthly" as const,
-      priority: 0.8,
-      url: `${siteUrl}${toolkit.route}`,
-    })),
-  ];
+      priority: path ? 0.8 : 1,
+      url: `${siteUrl}${prefix}${path}`,
+      alternates: { languages: { en: `${siteUrl}${path}`, ko: `${siteUrl}/ko${path}` } },
+    }))
+  );
 }

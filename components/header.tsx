@@ -12,6 +12,10 @@ import { cn } from "@/lib/utils";
 
 export function Header() {
   const pathname = usePathname();
+  const ko = pathname === "/ko" || pathname.startsWith("/ko/");
+  const prefix = ko ? "/ko" : "";
+  const englishPath = ko ? pathname.slice(3) || "/" : pathname;
+  const languageHref = ko ? englishPath : `/ko${pathname === "/" ? "" : pathname}`;
   const { siteTheme, toggleSiteTheme, codeThemeId, setCodeThemeId } = useSiteTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [themePickerOpen, setThemePickerOpen] = useState(false);
@@ -44,7 +48,7 @@ export function Header() {
         <div className="flex h-17 items-center justify-between gap-5">
           <Link
             className="group flex shrink-0 items-center gap-3"
-            href="/"
+            href={ko ? "/ko" : "/"}
             onClick={() => setMobileMenuOpen(false)}
           >
             <span className="flex size-8 items-center justify-center border border-primary bg-primary-solid font-mono text-[0.65rem] font-bold text-primary-foreground transition-transform group-hover:-rotate-3">
@@ -55,29 +59,48 @@ export function Header() {
             </span>
           </Link>
 
-          <nav aria-label="Toolkit navigation" className="hidden items-center gap-1 lg:flex">
+          <nav
+            aria-label={ko ? "도구 탐색" : "Toolkit navigation"}
+            className="hidden items-center gap-1 lg:flex"
+          >
             {toolkits.map((toolkit) => (
               <Link
-                aria-current={pathname === toolkit.route ? "page" : undefined}
+                aria-current={englishPath === toolkit.route ? "page" : undefined}
                 className={cn(
-                  "border-b px-3 py-2 font-mono text-[0.68rem] tracking-[0.08em] uppercase transition-colors",
-                  pathname === toolkit.route
+                  "border-b px-3 py-2 text-sm transition-colors",
+                  englishPath === toolkit.route
                     ? "border-primary text-foreground"
                     : "border-transparent text-muted-foreground hover:border-border hover:text-foreground"
                 )}
-                href={toolkit.route}
+                href={`${prefix}${toolkit.route}`}
                 key={toolkit.slug}
               >
-                {toolkit.shortName}
+                {ko
+                  ? {
+                      "rn-agents-kit": "프로젝트 점검",
+                      "rn-typed-assets": "에셋 관리",
+                      "rn-newarch-ready": "아키텍처",
+                      "design-to-nativewind": "디자인 변환",
+                    }[toolkit.slug]
+                  : toolkit.shortName}
               </Link>
             ))}
           </nav>
 
+          <a
+            aria-label={ko ? "Read this page in English" : "이 페이지를 한국어로 읽기"}
+            className="ml-auto inline-flex min-h-11 items-center rounded-full px-3 text-sm font-semibold text-primary-ink hover:bg-secondary"
+            href={languageHref}
+            hrefLang={ko ? "en" : "ko"}
+            lang={ko ? "en" : "ko"}
+          >
+            {ko ? "English" : "한국어"}
+          </a>
           <div className="hidden items-center gap-1.5 lg:flex">
             <div className="relative" ref={themePickerRef}>
               <button
                 aria-expanded={themePickerOpen}
-                aria-label="Select code theme"
+                aria-label={ko ? "코드 테마 선택" : "Select code theme"}
                 className="flex h-9 items-center gap-2 border border-transparent px-2.5 font-mono text-[0.65rem] tracking-[0.08em] text-muted-foreground uppercase transition-colors hover:border-border hover:text-foreground"
                 onClick={() => setThemePickerOpen((open) => !open)}
               >
@@ -110,7 +133,13 @@ export function Header() {
 
             <button
               aria-label={
-                resolvedSiteTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+                ko
+                  ? resolvedSiteTheme === "dark"
+                    ? "밝은 테마로 전환"
+                    : "어두운 테마로 전환"
+                  : resolvedSiteTheme === "dark"
+                    ? "Switch to light mode"
+                    : "Switch to dark mode"
               }
               className="flex size-9 items-center justify-center border border-transparent text-muted-foreground transition-colors hover:border-border hover:text-foreground"
               onClick={toggleSiteTheme}
@@ -123,7 +152,7 @@ export function Header() {
             </button>
 
             <a
-              aria-label="Open AndrewDongminYoo on GitHub"
+              aria-label={ko ? "AndrewDongminYoo GitHub 열기" : "Open AndrewDongminYoo on GitHub"}
               className="flex size-9 items-center justify-center border border-border text-foreground transition-colors hover:border-primary hover:text-primary"
               href="https://github.com/AndrewDongminYoo"
               rel="noopener noreferrer"
@@ -136,7 +165,15 @@ export function Header() {
           <button
             aria-controls="mobile-navigation"
             aria-expanded={mobileMenuOpen}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-label={
+              ko
+                ? mobileMenuOpen
+                  ? "메뉴 닫기"
+                  : "메뉴 열기"
+                : mobileMenuOpen
+                  ? "Close menu"
+                  : "Open menu"
+            }
             className="flex size-10 items-center justify-center border border-border text-foreground lg:hidden"
             onClick={() => setMobileMenuOpen((open) => !open)}
           >
@@ -155,12 +192,15 @@ export function Header() {
           id="mobile-navigation"
           inert={!mobileMenuOpen}
         >
-          <nav aria-label="Mobile toolkit navigation" className="grid gap-px bg-border">
+          <nav
+            aria-label={ko ? "모바일 도구 탐색" : "Mobile toolkit navigation"}
+            className="grid gap-px bg-border"
+          >
             {toolkits.map((toolkit) => (
               <Link
-                aria-current={pathname === toolkit.route ? "page" : undefined}
+                aria-current={englishPath === toolkit.route ? "page" : undefined}
                 className="flex items-center justify-between bg-background px-4 py-3.5 text-sm font-semibold text-foreground"
-                href={toolkit.route}
+                href={`${prefix}${toolkit.route}`}
                 key={toolkit.slug}
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -174,7 +214,7 @@ export function Header() {
 
           <fieldset className="mt-5 border-t border-border pt-5">
             <legend className="px-1 font-mono text-[0.65rem] tracking-[0.12em] text-muted-foreground uppercase">
-              Code theme
+              {ko ? "코드 테마" : "Code theme"}
             </legend>
             <div className="mt-3 grid grid-cols-2 gap-px bg-border">
               {CODE_THEMES.map((theme) => (
@@ -199,7 +239,13 @@ export function Header() {
           <div className="mt-5 flex items-center justify-between gap-3">
             <button
               aria-label={
-                resolvedSiteTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+                ko
+                  ? resolvedSiteTheme === "dark"
+                    ? "밝은 테마로 전환"
+                    : "어두운 테마로 전환"
+                  : resolvedSiteTheme === "dark"
+                    ? "Switch to light mode"
+                    : "Switch to dark mode"
               }
               className="flex h-10 flex-1 items-center justify-center gap-2 border border-border font-mono text-xs text-muted-foreground"
               onClick={toggleSiteTheme}
@@ -209,7 +255,13 @@ export function Header() {
               ) : (
                 <Moon className="size-4" />
               )}
-              {resolvedSiteTheme === "dark" ? "Light mode" : "Dark mode"}
+              {ko
+                ? resolvedSiteTheme === "dark"
+                  ? "밝은 테마"
+                  : "어두운 테마"
+                : resolvedSiteTheme === "dark"
+                  ? "Light mode"
+                  : "Dark mode"}
             </button>
             <a
               className="flex h-10 flex-1 items-center justify-center gap-2 border border-border font-mono text-xs text-muted-foreground"
