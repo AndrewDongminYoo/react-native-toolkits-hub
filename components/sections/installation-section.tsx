@@ -27,8 +27,10 @@ const usageCode = `import { Assets, Lotties, Svgs } from './generated/assets.gen
 // Lottie animations
 <LottieView source={Lotties.loading} autoPlay loop />
 
-// SVGs (with react-native-svg)
-<SvgUri source={Svgs.logo} />`;
+// SVGs (with react-native-svg-transformer and
+// types.svg.valueType set to 'React.FC<SvgProps>')
+const Logo = Svgs.logo;
+<Logo width={24} height={24} />`;
 
 const auditCommands = `npm run assets:audit          # report unused entries
 npm run assets:audit -- --fix # delete unused files and regenerate`;
