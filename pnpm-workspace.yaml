@@ -1,6 +1,9 @@
 allowBuilds:
   unrs-resolver: true # napi-postinstall binding check
 
+# Keep the application lockfile readable by single-document dependency scanners.
+pmOnFail: ignore
+
 # eslint-config-next supports ESLint 10, but these bundled plugin majors still declare ESLint 9 peer ranges.
 # Remove these scoped allowances when the upstream ranges include ESLint 10.
 peerDependencyRules:
@@ -10,9 +13,13 @@ peerDependencyRules:
     "eslint-plugin-react@7>eslint": "10"
 
 # Security overrides. Selectors are scoped per major line where an advisory
-# only publishes a fix in one major, so older lines are not dragged across a
-# breaking major.
+# only publishes a fix in one major. Cross-major minimatch exceptions below
+# are limited to consumers that use the retained named API; legacy callable
+# consumers stay on minimatch 3 until their upstream API changes.
 overrides:
+  "@eslint/config-array@0>minimatch": ^11.0.1 # GHSA-g3hv-75wg-m249
+  "@typescript-eslint/typescript-estree@8>minimatch": ^11.0.1 # GHSA-g3hv-75wg-m249
+  "eslint@10>minimatch": ^11.0.1 # GHSA-g3hv-75wg-m249
   "browserslist@>=4 <5": ^4.28.7 # GHSA-73wf-gq98-2v4g, GHSA-c83g-rgw3-j3cx
   sharp: ^0.35.4 # GHSA-f88m-g3jw-g9cj (libvips CVE-2026-33327/33328/35590/35591), GHSA-rgj7-g3m4-5g8c (libheif)
   "@babel/core": ^7.29.6
@@ -20,5 +27,5 @@ overrides:
   brace-expansion@5: ^5.0.12 # same advisories as brace-expansion@1
   js-yaml@4: ^4.3.0
   nanoid@3: ^3.3.18 # GHSA-2v37-7h3g-55p8
-  postcss@8: ^8.5.18
+  postcss@8: ^8.5.32
   source-map-js@1: ^1.2.2 # GHSA-68fv-2mgg-jv7q
