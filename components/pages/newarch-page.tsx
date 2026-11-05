@@ -180,7 +180,7 @@ export default function NewArchitectureReadyPage({ locale = "en" }: LocaleProps)
                     {translate("Evidence", locale)}
                   </th>
                   <th className="border-b border-border py-4 font-normal">
-                    {translate("Operator action", locale)}
+                    {translate("User action", locale)}
                   </th>
                 </tr>
               </thead>
