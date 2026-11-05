@@ -151,7 +151,7 @@ export const korean: Record<string, string> = {
     "소스를 바꾸는 스킬은 명시적인 동의를 받은 뒤에 실행합니다.",
   "Approved changes run the target project's own type, lint, and test commands.":
     "승인된 변경은 해당 프로젝트의 타입 검사, 린트, 테스트 명령으로 검증합니다.",
-  "The resulting git diff stays visible so the operator owns the final decision.":
+  "The resulting git diff stays visible so the user owns the final decision.":
     "변경 결과는 git diff로 남기고, 최종 결정은 사용자에게 맡깁니다.",
   "Reproducible evidence / public example": "재현 가능한 근거 / 공개 예제",
   "See the New Architecture audit run against a public app.": "공개 앱의 실제 점검 기록.",
