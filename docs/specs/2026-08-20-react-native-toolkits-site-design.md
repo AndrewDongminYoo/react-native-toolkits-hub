@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Expand the existing `rn-typed-assets` documentation site into a public product hub for four React Native developer tools owned by AndrewDongminYoo.
+Expand the existing `rn-typed-assets` documentation site into a public product hub for four React Native developer tools that I maintain.
 The site must help React Native developers understand which tool fits their current problem, reach a useful install or product link quickly, and inspect enough detail to trust the tool before leaving the site.
 
 ## Public scope

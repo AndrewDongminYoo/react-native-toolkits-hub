@@ -188,7 +188,7 @@ export const korean: Record<string, string> = {
     "v0.x의 보고서 형식은 변경될 수 있습니다. 마이그레이션 실행과 프로젝트 변경은 이 CLI의 범위에 포함되지 않습니다.",
   "Status": "상태",
   "Evidence": "근거",
-  "Operator action": "사용자 확인 사항",
+  "User action": "사용자 확인 사항",
   "Local codegenConfig signal": "로컬 codegenConfig 신호",
   "Strong local evidence": "강한 로컬 근거",
   "Public directory marks the library ready": "공개 디렉터리에서 준비 완료로 표시",
