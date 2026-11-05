@@ -103,7 +103,7 @@ const contract = [
   ["01", "Inspect", "The first pass reads the project and reports what it can prove."],
   ["02", "Ask", "A skill that can mutate waits for explicit consent before changing source."],
   ["03", "Gate", "Approved changes run the target project's own type, lint, and test commands."],
-  ["04", "Review", "The resulting git diff stays visible so the operator owns the final decision."],
+  ["04", "Review", "The resulting git diff stays visible so the user owns the final decision."],
 ];
 
 const toolkit = getToolkit("rn-agents-kit");
