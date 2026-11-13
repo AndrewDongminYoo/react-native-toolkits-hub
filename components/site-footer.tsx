@@ -35,6 +35,15 @@ export function SiteFooter({ locale = "en" }: LocaleProps) {
             {translate("AndrewDongminYoo on GitHub", locale)}
             <ArrowUpRight className="size-3" />
           </a>
+          <a
+            className="mt-3 flex w-fit items-center gap-2 font-mono text-xs tracking-[0.12em] text-foreground uppercase transition-colors hover:text-primary-ink"
+            href={locale === "ko" ? "https://donminzzi.kr" : "https://donminzzi.kr/en"}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {translate("Made by Dongmin Yu", locale)}
+            <ArrowUpRight className="size-3" />
+          </a>
         </div>
 
         <nav

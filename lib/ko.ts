@@ -418,4 +418,5 @@ export const korean: Record<string, string> = {
   "A read-only, local-first React Native New Architecture readiness audit for dependencies, settings, and app-local native modules.":
     "의존성과 설정, 앱 내부 네이티브 모듈을 대상으로 React Native New Architecture 준비 상태를 점검하는 읽기 전용, 로컬 우선 도구입니다.",
   "AndrewDongminYoo on GitHub": "AndrewDongminYoo의 GitHub",
+  "Made by Dongmin Yu": "만든 사람: 유동민",
 };
