@@ -64,6 +64,11 @@ export const metadata: Metadata = {
     type: "website",
     images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
+  verification: {
+    other: {
+      "naver-site-verification": "b1ca7ab57e7934343b8ba7da788473355aa95dcc",
+    },
+  },
 };
 
 export default function SiteLayout({
