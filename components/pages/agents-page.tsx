@@ -127,7 +127,7 @@ export default function AgentsKitPage({ locale = "en" }: LocaleProps) {
     >
       <ProductHero
         description={translate(
-          "The public v0.2.1 release packages ten narrow skills. Each one owns a specific maintenance job and keeps evidence, consent, and review boundaries explicit.",
+          "The public v0.2.2 release packages ten narrow skills. Each one owns a specific maintenance job and keeps evidence, consent, and review boundaries explicit.",
           locale
         )}
         intro={translate(
@@ -165,7 +165,7 @@ export default function AgentsKitPage({ locale = "en" }: LocaleProps) {
             </h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground">
               {translate(
-                "Add the public marketplace, then install the v0.2.1 plugin from that source. The public README currently documents this Claude Code installation path.",
+                "Add the public marketplace, then install the v0.2.2 plugin from that source. The public README currently documents this Claude Code installation path.",
                 locale
               )}
             </p>

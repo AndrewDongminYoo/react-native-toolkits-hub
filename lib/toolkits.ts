@@ -36,7 +36,7 @@ export const toolkits = [
     route: "/rn-agents-kit",
     shortName: "Agents",
     slug: "rn-agents-kit",
-    status: "v0.2.1 · Public",
+    status: "v0.2.2 · Public",
   },
   {
     accent: "oklch(0.78 0.15 210)",

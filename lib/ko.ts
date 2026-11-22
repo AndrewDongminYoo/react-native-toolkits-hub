@@ -81,7 +81,7 @@ export const korean: Record<string, string> = {
     "프로젝트의 로컬 네이티브 신호를 읽고, New Architecture 전환 전에 검토해야 할 내용을 정리합니다.",
   "Convert a Figma selection into React Native and NativeWind component code through a deterministic pipeline.":
     "결정론적 파이프라인으로 Figma 선택 영역을 React Native와 NativeWind 컴포넌트 코드로 변환합니다.",
-  "v0.2.1 · Public": "v0.2.1 · 공개",
+  "v0.2.2 · Public": "v0.2.2 · 공개",
   "Public · MIT": "공개 · MIT",
   "npm package": "npm 패키지",
   "MODULE /": "모듈 /",
@@ -96,16 +96,16 @@ export const korean: Record<string, string> = {
   "Toolkit footer navigation": "하단 도구 탐색",
   "Give your coding agent a React Native maintenance kit that reads first and earns every change.":
     "먼저 읽고, 근거가 있을 때 바꾸는 React Native 유지보수 키트.",
-  "The public v0.2.1 release packages ten narrow skills. Each one owns a specific maintenance job and keeps evidence, consent, and review boundaries explicit.":
-    "공개된 v0.2.1에는 10가지 전문 스킬이 담겨 있습니다. 각 스킬은 하나의 유지보수 작업을 맡고, 근거와 동의, 검토의 경계를 명확히 지킵니다.",
+  "The public v0.2.2 release packages ten narrow skills. Each one owns a specific maintenance job and keeps evidence, consent, and review boundaries explicit.":
+    "공개된 v0.2.2에는 10가지 전문 스킬이 담겨 있습니다. 각 스킬은 하나의 유지보수 작업을 맡고, 근거와 동의, 검토의 경계를 명확히 지킵니다.",
   "read-only": "읽기 전용",
   "explicit consent": "명시적 동의",
   "project gates": "프로젝트 검증",
   "reviewable diff": "검토 가능한 diff",
   "Install / Claude Code": "설치 / Claude Code",
   "Two commands. Ten focused skills.": "명령 두 줄. 스킬 열 가지.",
-  "Add the public marketplace, then install the v0.2.1 plugin from that source. The public README currently documents this Claude Code installation path.":
-    "공개 마켓플레이스를 추가한 다음 v0.2.1 플러그인을 설치하세요. 현재 공개 README에서 안내하는 Claude Code 설치 방식입니다.",
+  "Add the public marketplace, then install the v0.2.2 plugin from that source. The public README currently documents this Claude Code installation path.":
+    "공개 마켓플레이스를 추가한 다음 v0.2.2 플러그인을 설치하세요. 현재 공개 README에서 안내하는 Claude Code 설치 방식입니다.",
   "The public distribution is licensed under Apache-2.0 and contains the shipped skills, plugin manifests, changelog, contribution guide, and example artifacts.":
     "공개 배포본은 Apache-2.0 라이선스를 따릅니다. 스킬, 플러그인 매니페스트, 변경 이력, 기여 가이드, 예제 결과물이 포함됩니다.",
   "Skill inventory / 10": "스킬 목록 / 10",
